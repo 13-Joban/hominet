@@ -1,23 +1,17 @@
-import React from 'react'
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-function EnrollSubject() {
+function EnrollCourse({courseName, courseId, courseLink}) {
   const [formData, setFormData] = useState({
     urn: 2004603,
     name: 'John Doe',
     semester: 6,
     parentBranch: 'Mechanical Engineering',
     contactNo: 9876543210,
-    subjectCode: 'MnPCCS-106',
-    subjectName: 'Computer Graphics',
+    courseId: `${courseId}`,
+    courseName: `${courseName}`,
     sgpa1stSem: 10.0,
-    sgpa2ndSem: 10.0,
-    sgpa3rdSem: 10.0,
-    sgpa4thSem: 10.0,
-    sgpa5thSem: 10.0,
-    sgpa6thSem: 10.0,
-    sgpa7thSem: 10.0,
-    sgpa8thSem: 10.0,
+    sgpa2ndSem: 10.0
   });
   const router = useRouter();
 
@@ -35,7 +29,11 @@ function EnrollSubject() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Computer Graphics</h1>
+      <h1 className="text-3xl font-bold mb-4">{courseName}</h1>
+      <p className="mb-4">About the course: Course description goes here...</p>
+      <div className="text-center mb-4">
+        <a href='' className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 inline-block" target="_blank" rel="noopener noreferrer">Nptel Link</a>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="urn" type="number" className="block text-gray-700 font-bold mb-2">University Roll No</label>
@@ -82,12 +80,12 @@ function EnrollSubject() {
           <input id="contactNo" type="text" name="contactNo" value={formData.contactNo} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
         </div>
         <div className="mb-4">
-          <label htmlFor="subjectCode" className="block text-gray-700 font-bold mb-2">Subject Code</label>
-          <input id="subjectCode" type="text" name="subjectCode" value={formData.subjectCode} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <label htmlFor="courseId" className="block text-gray-700 font-bold mb-2">Course Id</label>
+          <input id="courseId" type="text" name="courseId" value={formData.courseId} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
         </div>
         <div className="mb-4">
-          <label htmlFor="subjectName" className="block text-gray-700 font-bold mb-2">Subject Name</label>
-          <input id="subjectName" type="text" name="subjectName" value={formData.subjectName} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <label htmlFor="courseName" className="block text-gray-700 font-bold mb-2">Course Name</label>
+          <input id="courseName" type="text" name="courseName" value={formData.courseName} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
         </div>
         <div className="mb-4">
           <label htmlFor="sgpa1stSem" className="block text-gray-700 font-bold mb-2">SGPA (1st Sem)</label>
@@ -97,37 +95,15 @@ function EnrollSubject() {
           <label htmlFor="sgpa2ndSem" className="block text-gray-700 font-bold mb-2">SGPA (2nd Sem)</label>
           <input id="sgpa2ndSem" type="text" name="sgpa2ndSem" value={formData.sgpa2ndSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
         </div>
-        <div className="mb-4">
-          <label htmlFor="sgpa3rdSem" className="block text-gray-700 font-bold mb-2">SGPA (3rd Sem)</label>
-          <input id="sgpa3rdSem" type="text" name="sgpa3rdSem" value={formData.sgpa3rdSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="sgpa4thSem" className="block text-gray-700 font-bold mb-2">SGPA (4th Sem)</label>
-          <input id="sgpa4thSem" type="text" name="sgpa4thSem" value={formData.sgpa4thSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="sgpa5thSem" className="block text-gray-700 font-bold mb-2">SGPA (5th Sem)</label>
-          <input id="sgpa5thSem" type="text" name="sgpa5thSem" value={formData.sgpa5thSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="sgpa6thSem" className="block text-gray-700 font-bold mb-2">SGPA (6th Sem)</label>
-          <input id="sgpa6thSem" type="text" name="sgpa6thSem" value={formData.sgpa6thSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="sgpa7thSem" className="block text-gray-700 font-bold mb-2">SGPA (7th Sem)</label>
-          <input id="sgpa7thSem" type="text" name="sgpa7thSem" value={formData.sgpa7thSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="sgpa8thSem" className="block text-gray-700 font-bold mb-2">SGPA (8th Sem)</label>
-          <input id="sgpa8thSem" type="text" name="sgpa8thSem" value={formData.sgpa8thSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
-        </div>
         <div className="mb-4 text-center">
-          <button type="submit" className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Enroll for Subject</button>
+          <button type="submit" className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Register for Course</button>
         </div>
+
       </form>
     </div>
   )
 
+
 }
 
-export default EnrollSubject
+export default EnrollCourse;

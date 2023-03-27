@@ -3,7 +3,10 @@ import Head from 'next/head'
 import { Open_Sans } from 'next/font/google'
 // import styles from '@/styles/Home.module.css'
 import SelectDegree from '../components/SelectDegree';
-import EnrollCourse from "../components/EnrollCourse";
+import EnrollCourseHonours from "../components/honours/EnrollCourse";
+import EnrollCourseMinor from "../components/minor/EnrollCourse";
+import Courses from '../components/minor/Courses';
+
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export default function Home() {
@@ -17,7 +20,10 @@ export default function Home() {
       </Head>
       <main className={`overflow-y-auto bg-[#9cd8f8] ${openSans.className}`}>
         {/* <SelectDegree /> */}
-        <EnrollCourse />
+        {/* <EnrollCourse /> */}
+        {/* <EnrollCourseHonours /> */}
+        {/* <EnrollCourseMinor /> */}
+        <Courses />
       </main>
     </>
   )
