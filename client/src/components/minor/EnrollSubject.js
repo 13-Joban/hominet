@@ -1,15 +1,17 @@
-import React from 'react'
+import {useState} from 'react'
 import { useRouter } from 'next/router';
 
-function EnrollSubject() {
+function EnrollSubject({subjectName, subjectCode}) {
+
+  console.log('in EnrollSubject props ' +  subjectName, subjectCode);
   const [formData, setFormData] = useState({
     urn: 2004603,
     name: 'John Doe',
     semester: 6,
     parentBranch: 'Mechanical Engineering',
     contactNo: 9876543210,
-    subjectCode: 'MnPCCS-106',
-    subjectName: 'Computer Graphics',
+    subjectCode: subjectCode,
+    subjectName: subjectName,
     sgpa1stSem: 10.0,
     sgpa2ndSem: 10.0,
     sgpa3rdSem: 10.0,

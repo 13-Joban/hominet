@@ -1,13 +1,20 @@
 import React from 'react'
 import Courses from '../../../components/minor/Courses'
+import Subjects from '../../../components/minor/Subjects'
 
-function enroll() {
+function Enroll() {
   return (
-    <div className="container mx-auto">
-    <h1 className="text-3xl font-bold mb-4">List of available MOOC courses for minor engineering degree</h1>
-    <Courses />
-  </div>
+    <div className="flex flex-col justify-between min-h-screen px-4 py-6 sm:px-6 sm:py-8 lg:py-12">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold mb-4 sm:text-3xl">List of Available Subjects</h1>
+        <Subjects />
+      </div>
+      <div className="flex-grow">
+        <h1 className="text-2xl font-bold mb-4 sm:text-3xl">List of Available Courses</h1>
+        <Courses />
+      </div>
+    </div>
   )
 }
 
-export default enroll
+export default Enroll

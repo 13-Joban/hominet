@@ -1,6 +1,5 @@
 import React from "react";
 import CourseCard from "../CourseCard";
-import EnrollCourse from "./EnrollCourse";
 
 function Courses() {
   const courses = [
@@ -10,6 +9,8 @@ function Courses() {
       courseId: "noc23-cs08",
       courseName: "Data Analytics with Python",
       institute: "IITR",
+      session: 'January-June',
+      academicYear: '2023',
       duration: "12 Weeks",
       courseLink: "https://nptel.ac.in/courses/106107220",
     },
@@ -19,6 +20,8 @@ function Courses() {
       courseId: 'noc23-cs08',
       courseName: 'Data Analytics with Python',
       institute: 'IITR',
+      session: 'January-June',
+      academicYear: '2023',
       duration: '12 Weeks',
       courseLink: 'https://nptel.ac.in/courses/106107220'
     },
