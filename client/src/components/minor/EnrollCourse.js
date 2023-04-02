@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 function EnrollCourse({courseName, courseId, courseLink}) {
+  console.log('props in  enrollcourse component ', courseName, courseId, courseLink);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     urn: 2004603,
     name: 'John Doe',
@@ -13,7 +15,6 @@ function EnrollCourse({courseName, courseId, courseLink}) {
     sgpa1stSem: 10.0,
     sgpa2ndSem: 10.0
   });
-  const router = useRouter();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -32,7 +33,7 @@ function EnrollCourse({courseName, courseId, courseLink}) {
       <h1 className="text-3xl font-bold mb-4">{courseName}</h1>
       <p className="mb-4">About the course: Course description goes here...</p>
       <div className="text-center mb-4">
-        <a href='' className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 inline-block" target="_blank" rel="noopener noreferrer">Nptel Link</a>
+        <a href={courseLink} className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 inline-block" target="_blank" rel="noopener noreferrer">Nptel Link</a>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
