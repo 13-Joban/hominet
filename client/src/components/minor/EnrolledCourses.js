@@ -1,11 +1,16 @@
-import React from 'react'
+import getEnrolledCourses from '../../utils/getEnrolledCourses';
+import CourseCard from "../CourseCard";
 
 function EnrolledCoures() {
+  const enrolledCourses = getEnrolledCourses();
+
   return (
-    <div>
-      List of enrolled courses basically iterate over all enrolled courses
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {enrolledCourses.map(course => (
+        <CourseCard key={course.id} course={course} isEnrolled={true} />
+      ))}
     </div>
-  )
+  );
 }
 
 export default EnrolledCoures

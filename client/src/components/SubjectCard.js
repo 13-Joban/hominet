@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-function SubjectCard({ subject }) {
+function SubjectCard({ subject, isEnrolled }) {
   return (
     <div className="bg-white shadow-md rounded-md overflow-hidden hover:cursor-pointer hover:shadow-lg transition duration-200">
-      <Link href={`/minor/enroll/subjects/${subject.subjectCode}`} passHref legacyBehavior>
+      <Link href={isEnrolled ? `/minor/enrolled/subjects/${subject.subjectCode}` : `/minor/enroll/subjects/${subject.subjectCode}`} passHref legacyBehavior>
         <a>
           <img
             className="h-40 w-full object-cover"
@@ -19,6 +19,7 @@ function SubjectCard({ subject }) {
                 {subject.academicYear}
             </span>
             </p>
+            {isEnrolled && <p className="text-gray-600">Enrolled</p>}
           </div>
         </a>
       </Link>

@@ -1,11 +1,11 @@
-import EnrollSubject from '../../../../components/minor/EnrollSubject'
+import EnrolledSubject from '../../../../components/minor/EnrolledSubject'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import findSubjectByCode from '../../../../utils/findSubjectByCode'
 import getAllSubjects from '../../../../utils/getAllSubjects'
 import Layout from '../../../../components/Layout'
 
-function EnrollSubjectPage () {
+function EnrolledSubjectPage () {
   const router = useRouter()
   const subjectCode = router.query.subjectCode
   // console.log('subjectCode  at time =  ' , Date.now().toLocaleString());
@@ -16,7 +16,7 @@ function EnrollSubjectPage () {
 
   return (
     <Layout>
-      <EnrollSubject
+      <EnrolledSubject
         subjectName={subjectName}
         subjectCode={subjectCode}
       />
@@ -24,4 +24,4 @@ function EnrollSubjectPage () {
   )
 }
 
-export default EnrollSubjectPage
+export default EnrolledSubjectPage

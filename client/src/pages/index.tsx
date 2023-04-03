@@ -7,6 +7,7 @@ import EnrollCourseHonours from "../components/honours/EnrollCourse";
 import EnrollCourseMinor from "../components/minor/EnrollCourse";
 import Courses from '../components/minor/Courses';
 
+
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export default function Home() {

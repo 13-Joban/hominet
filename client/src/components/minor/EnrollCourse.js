@@ -25,7 +25,7 @@ function EnrollCourse({courseName, courseId, courseLink}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData); // replace with actual form submission logic
-    router.push('/dashboard');
+    router.push('/minor/enrolled/allcourses');
   }
 
   return (
@@ -82,11 +82,11 @@ function EnrollCourse({courseName, courseId, courseLink}) {
         </div>
         <div className="mb-4">
           <label htmlFor="courseId" className="block text-gray-700 font-bold mb-2">Course Id</label>
-          <input id="courseId" type="text" name="courseId" value={formData.courseId} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <input id="courseId" type="text" name="courseId" value={formData.courseId} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
         <div className="mb-4">
           <label htmlFor="courseName" className="block text-gray-700 font-bold mb-2">Course Name</label>
-          <input id="courseName" type="text" name="courseName" value={formData.courseName} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <input id="courseName" type="text" name="courseName" value={formData.courseName} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
         <div className="mb-4">
           <label htmlFor="sgpa1stSem" className="block text-gray-700 font-bold mb-2">SGPA (1st Sem)</label>

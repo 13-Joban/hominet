@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-function Card({ course }) {
+function CourseCard({ course, isEnrolled }) {
   return (
     <div className="bg-white shadow-md rounded-md overflow-hidden hover:cursor-pointer hover:shadow-lg transition duration-200">
-      <Link href={`/minor/enroll/courses/${course.courseId}`} passHref legacyBehavior>
+      <Link href={isEnrolled  ? `/minor/enrolled/courses/${course.courseId}`  : `/minor/enroll/courses/${course.courseId}`}  passHref legacyBehavior>
         <a>
           <img
             className="h-40 w-full object-cover"
@@ -21,4 +21,4 @@ function Card({ course }) {
   );
 }
 
-export default Card;
+export default CourseCard;

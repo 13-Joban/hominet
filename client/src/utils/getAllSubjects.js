@@ -21,6 +21,17 @@ function getAllSubjects(){
           academicYear: '2023',
           description: 'Graphics in the computers',
           image: 'https://example.com/lab.jpg',
+        },
+        {
+          id: 3,
+          subjectName: 'Machine Learning',
+          subjectCode: 'MnLPCCS107',
+          subjectType: 'Theory',
+          credits: 3,
+          session: 'January-June',
+          academicYear: '2023',
+          description: 'Study about machine learning',
+          image: 'https://example.com/lab.jpg',
         }
       ];
       return subjects;
