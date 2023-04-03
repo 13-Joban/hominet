@@ -16,13 +16,13 @@ function SelectDegree() {
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col gap-4">
           <button
-            className="bg-carrot bg-red-400 rounded-md py-2 px-20 hover:text-carrot transition duration-300"
+            className="text-white bg-blue-500 hover:bg-blue-700 font-bold rounded-md py-2 px-20  transition duration-300"
             onClick={handleMinorClick}
           >
             Minor
           </button>
           <button
-            className="bg-carrot bg-red-400 rounded-md py-2 px-20 hover:text-carrot transition duration-300"
+            className="text-white bg-blue-500 hover:bg-blue-700 font-bold rounded-md py-2 px-20  transition duration-300"
             onClick={handleHonoursClick}
           >
             Honours
