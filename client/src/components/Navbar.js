@@ -11,7 +11,7 @@ function Navbar() {
   return (
     <nav className='flex items-center justify-between flex-wrap p-6'>
       <div className='flex items-center flex-shrink-0 text-white mr-6 lg:mr-72'>
-        <a href='/'>
+        <a href='/choose-degree'>
           <Image
             src={locofy}
             className='mr-2'
@@ -60,16 +60,18 @@ function Navbar() {
             My Courses
           </a>
           <a
-            href='#'
-            className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4'
-          >
-            Mission
-          </a>
-          <a
-            href='#'
+            href='https://gndec.ac.in/?q=node%2F7'
+            target='_blank'
             className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4'
           >
             Vision
+          </a>
+          <a
+            href='https://gndec.ac.in/?q=node%2F9'
+            target='_blank'
+            className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4'
+          >
+            Mission
           </a>
         </div>
 

@@ -11,7 +11,7 @@ function Enrolled() {
         <EnrolledSubjects />
       </div>
       <div className="flex-grow">
-        <h2 className="text-2xl font-bold mb-4 sm:text-3xl">List of Enrolled Courses</h2>
+        <h2 className="text-2xl font-bold mb-4 sm:text-3xl">List of Enrolled MOOC Courses</h2>
         <EnrolledCourses />
       </div>
     </div>

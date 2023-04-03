@@ -12,7 +12,7 @@ function Enroll() {
         <Subjects />
       </div>
       <div className="flex-grow">
-        <h1 className="text-2xl font-bold mb-4 sm:text-3xl">List of Available Courses</h1>
+        <h1 className="text-2xl font-bold mb-4 sm:text-3xl">List of Available MOOC Courses</h1>
         <Courses />
       </div>
     </div>
