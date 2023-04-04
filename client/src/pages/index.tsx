@@ -6,6 +6,7 @@ import SelectDegree from '../components/SelectDegree';
 import EnrollCourseHonours from "../components/honours/EnrollCourse";
 import EnrollCourseMinor from "../components/minor/EnrollCourse";
 import Courses from '../components/minor/Courses';
+import LoginPage from './login';
 
 
 const openSans = Open_Sans({ subsets: ["latin"] });
@@ -19,6 +20,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <LoginPage />
     </>
   )
 }
