@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 
-function Layout({ children }) {
+export default function Layout({ children }) {
   return (
     <>
       <Navbar />
@@ -8,5 +8,3 @@ function Layout({ children }) {
     </>
   );
 }
-
-export default Layout;

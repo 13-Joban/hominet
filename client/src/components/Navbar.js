@@ -5,7 +5,7 @@ import Image from 'next/image'
 import locofy from '../../public/images/logo.png'
 import profilePic from '../../public/images/IMG_1472.jpg'
 
-function Navbar() {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -89,5 +89,3 @@ function Navbar() {
     </nav>
   )
 }
-
-export default Navbar
