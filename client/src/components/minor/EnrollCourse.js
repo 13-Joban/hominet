@@ -30,8 +30,9 @@ function EnrollCourse({courseName, courseId, courseLink}) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">{courseName}</h1>
-      <p className="mb-4">About the course: Course description goes here...</p>
+      <h1 className="lg:text-3xl text-2xl text-red font-normal mb-4">{courseName}</h1>
+      {/* <hr style={{border: '0.5px solid black'}} /> */}
+      <p className="mb-4">About the course</p>
       <div className="text-center mb-4">
         <a href={courseLink} className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 inline-block" target="_blank" rel="noopener noreferrer">Nptel Link</a>
       </div>

@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import Image from 'next/image'
 
 import locofy from '../../public/images/logo.png'
-import profilePic from '../../public/images/IMG_1472.jpg'
+import profilePic from '../../public/images/IMG_1480.jpg'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className='flex items-center justify-between flex-wrap p-6'>
-      <div className='flex items-center flex-shrink-0 text-white mr-6 lg:mr-72'>
+    <nav className='flex items-center justify-between flex-wrap p-4 bg-skyblue mb-4'>
+      <div className='flex items-center flex-shrink-0 text-grey mr-6 lg:mr-72'>
         <a href='/choose-degree'>
           <Image
             src={locofy}
@@ -49,27 +49,27 @@ export default function Navbar() {
         <div className='lg:text-xl text-sm font-normal lg:flex-grow'>
           <a
             href='/choose-degree'
-            className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4'
+            className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'
           >
             Home
           </a>
           <a
             href='/minor/enrolled/allcourses'
-            className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4'
+            className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'
           >
             My Courses
           </a>
           <a
             href='https://gndec.ac.in/?q=node%2F7'
             target='_blank'
-            className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4'
+            className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'
           >
             Vision
           </a>
           <a
             href='https://gndec.ac.in/?q=node%2F9'
             target='_blank'
-            className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4'
+            className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'
           >
             Mission
           </a>
