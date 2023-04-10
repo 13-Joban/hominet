@@ -4,11 +4,12 @@ import findSubjectByCode from '../../../../utils/findSubjectByCode'
 import getAllSubjects from '../../../../utils/getAllSubjects'
 import Layout from '../../../../components/Layout'
 import EnrolledSubject from '../../../../components/minor/EnrolledSubject'
+import { useSelector } from 'react-redux'
 
 function EnrolledSubjectPage() {
   const router = useRouter()
   const { subjectCode } = router.query
-  const subjects = getAllSubjects()
+  const subjects = useSelector(state => state.subjects.enrolledSubjects)
   const [subject, setSubject] = useState(null)
 
   useEffect(() => {
@@ -27,6 +28,7 @@ function EnrolledSubjectPage() {
       <EnrolledSubject
         subjectName={subject.subjectName}
         subjectCode={subjectCode}
+        credits={subject.credits}
       />
     </Layout>
   )
