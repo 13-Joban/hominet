@@ -1,5 +1,8 @@
 import {useState} from 'react'
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { enrollSubject } from '../../store/slices/subjectSlice';
+
 
 function EnrollSubject({subjectName, subjectCode}) {
 
@@ -22,6 +25,7 @@ function EnrollSubject({subjectName, subjectCode}) {
     sgpa8thSem: 10.0,
   });
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -32,12 +36,13 @@ function EnrollSubject({subjectName, subjectCode}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData); // replace with actual form submission logic
+    dispatch(enrollSubject(subjectCode))
     router.push('/minor/enrolled/allcourses');
   }
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Computer Graphics</h1>
+      <h1 className="lg:text-3xl text-2xl text-red font-normal mb-4">{subjectName}</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="urn" type="number" className="block text-gray-700 font-bold mb-2">University Roll No</label>
