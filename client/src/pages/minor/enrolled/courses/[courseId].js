@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react'
 import findCourseById from '../../../../utils/findCourseById'
 import getAllCourses from '../../../../utils/getAllCourses'
 import Layout from '../../../../components/Layout'
+import {useSelector} from 'react-redux'
 import EnrolledCourse from '../../../../components/minor/EnrolledCourse'
 
 function EnrolledCoursePage() {
   const router = useRouter()
   const { courseId } = router.query
-  const courses = getAllCourses()
+  const courses =  useSelector(state => state.courses.enrolledCourses)
   const [course, setCourse] = useState(null)
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function EnrolledCoursePage() {
 
   return (
     <Layout>
-      <EnrolledCourse course={course} />
+      <EnrolledCourse courseName={course.courseName} duration={course.duration} institute={course.institute} />
     </Layout>
   )
 }

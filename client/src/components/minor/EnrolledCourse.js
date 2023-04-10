@@ -2,7 +2,7 @@ import  { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function EnrolledCourse({ course }) {
+function EnrolledCourse({ courseName, duration, institute }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -33,9 +33,9 @@ function EnrolledCourse({ course }) {
       <ToastContainer />
       {/* Course Details */}
       <div className="bg-white rounded-md p-4 mb-4 md:mr-4 w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
-        <h2 className="text-xl font-bold mb-2">{course.courseName}</h2>
-        <p className="text-gray-600">Duration: {course.duration}</p>
-        <p className="text-gray-600">Offered by: {course.institute}</p>
+        <h2 className="text-xl font-bold mb-2">{courseName}</h2>
+        <p className="text-gray-600">Duration: {duration}</p>
+        <p className="text-gray-600">Offered by: {institute}</p>
       </div>
 
       {/* Certificate Upload */}
