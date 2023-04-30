@@ -15,9 +15,15 @@ const coursesSlice = createSlice({
         state.enrolledCourses.push(state.allCourses[courseIndex]);
       }
     },
+    completeCourse: (state, action) => {
+      const courseIndex = state.enrolledCourses.findIndex(course => course.courseId === action.payload);
+      if (courseIndex !== -1) {
+        state.enrolledCourses[courseIndex].isCompleted = true;
+      }
+    },
   },
 });
 
-export const { enrollCourse } = coursesSlice.actions;
+export const { enrollCourse, completeCourse } = coursesSlice.actions;
 
 export default coursesSlice.reducer;

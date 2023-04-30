@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { enrollCourse } from '../../store/slices/courseSlice';
 
-function EnrollCourse({courseName, courseId, courseLink}) {
+function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
   // console.log('props in  enrollcourse component ', courseName, courseId, courseLink);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -38,6 +38,8 @@ function EnrollCourse({courseName, courseId, courseLink}) {
       {/* <hr style={{border: '0.5px solid black'}} /> */}
       <p className="mb-4">About the course : </p>
       <p className="mb-4">This course includes examples of analytics in a wide variety of industries, and we hope that students will learn how you can use analytics in their career and life. One of the most important aspects of this course is that you, the student, are getting hands-on experience creating analytics models</p>
+      <p className="mb-4">Duration :{duration} </p>
+      <p className="mb-4">Offered By :{offeredBy} </p>
       <div className="text-center mb-4">
         <a href={courseLink} className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 inline-block" target="_blank" rel="noopener noreferrer">Nptel Link</a>
       </div>

@@ -9,6 +9,7 @@ function getAllCourses() {
           duration: "12 Weeks",
           courseLink: "https://nptel.ac.in/courses/106107220",
           isEnrolled: false,
+          isCompleted: false
         },
         {
           id: 2,
@@ -19,6 +20,7 @@ function getAllCourses() {
           duration: '12 Weeks',
           courseLink: 'https://nptel.ac.in/courses/106106146',
           isEnrolled: false,
+          isCompleted: false
         },
         {
           id: 3,
@@ -29,6 +31,7 @@ function getAllCourses() {
           duration: '12 Weeks',
           courseLink: 'https://nptel.ac.in/courses/106106169',
           isEnrolled: false,
+          isCompleted: false
         },
         {
           id: 4,
@@ -39,6 +42,7 @@ function getAllCourses() {
           duration: '12 Weeks',
           courseLink: 'https://nptel.ac.in/courses/106106182',
           isEnrolled: false,
+          isCompleted: false
         },
         {
           id: 5,
@@ -49,6 +53,7 @@ function getAllCourses() {
           duration: '12 Weeks',
           courseLink: 'https://nptel.ac.in/courses/106105217',
           isEnrolled: false,
+          isCompleted: false
         },
         {
           id: 6,
@@ -59,6 +64,7 @@ function getAllCourses() {
           duration: '12 Weeks',
           courseLink: 'https://nptel.ac.in/courses/106105158',
           isEnrolled: false,
+          isCompleted: false
         },
       ];
     

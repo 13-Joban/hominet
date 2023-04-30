@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-function EnrolledSubject({ subjectName, subjectCode, credits }) {
+import {completeSubject } from '../../store/slices/subjectSlice'
+import { useDispatch } from 'react-redux';
+function EnrolledSubject({  subjectName, subjectCode, credits }) {
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const dispatch = useDispatch();
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -23,6 +24,7 @@ function EnrolledSubject({ subjectName, subjectCode, credits }) {
     console.log(selectedFile);
     // Display toast message on successful upload
     toast.success('File uploaded successfully!');
+    dispatch(completeSubject(subjectCode))
   };
 
   return (

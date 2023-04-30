@@ -15,9 +15,15 @@ const subjectsSlice = createSlice({
         state.enrolledSubjects.push(state.allSubjects[subjectIndex]);
       }
     },
+    completeSubject: (state, action) => {
+      const subjectIndex = state.enrolledSubjects.findIndex(subject => subject.subjectCode === action.payload);
+      if (subjectIndex !== -1) {
+        state.enrolledSubjects[subjectIndex].isCompleted = true;
+      }
+    },
   },
 });
 
-export const { enrollSubject } = subjectsSlice.actions;
+export const { enrollSubject, completeSubject } = subjectsSlice.actions;
 
 export default subjectsSlice.reducer;

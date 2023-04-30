@@ -1,9 +1,14 @@
 import  { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {completeCourse } from '../../store/slices/courseSlice'
+import { useDispatch } from 'react-redux';
+import CompletedCourse from './CompletedCourse'
 
-function EnrolledCourse({ courseName, duration, institute }) {
+function EnrolledCourse({ isCompleted, courseId, courseName, duration, institute }) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const dispatch =useDispatch();
+
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -23,10 +28,15 @@ function EnrolledCourse({ courseName, duration, institute }) {
     if (selectedFile) {
       console.log(selectedFile);
       toast.success("File uploaded successfully!");
+      dispatch(completeCourse(courseId))
     } else {
       toast.error("Please select a file to upload.");
     }
   };
+
+  if(isCompleted){
+    return  <CompletedCourse courseName={courseName} duration={duration} institute={institute} certificateFile={selectedFile} />
+  }
 
   return (
     <div className="flex flex-col justify-center items-center mx-auto">
@@ -34,6 +44,8 @@ function EnrolledCourse({ courseName, duration, institute }) {
       {/* Course Details */}
       <div className="bg-white rounded-md p-4 mb-4 md:mr-4 w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
         <h2 className="text-xl font-bold mb-2">{courseName}</h2>
+        <p className="mb-4">About the course : </p>
+      <p className="mb-4">This course includes examples of analytics in a wide variety of industries, and we hope that students will learn how you can use analytics in their career and life. One of the most important aspects of this course is that you, the student, are getting hands-on experience creating analytics models</p>
         <p className="text-gray-600">Duration: {duration}</p>
         <p className="text-gray-600">Offered by: {institute}</p>
       </div>

@@ -29,6 +29,8 @@ function EnrollCoursePage() {
       <EnrollCourse
         courseName={course.courseName}
         courseId={courseId}
+        duration={course.duration}
+        offeredBy={course.institute}
         courseLink={course.courseLink}
       />
     </Layout>

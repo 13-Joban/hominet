@@ -25,7 +25,7 @@ function EnrolledCoursePage() {
 
   return (
     <Layout>
-      <EnrolledCourse courseName={course.courseName} duration={course.duration} institute={course.institute} />
+      <EnrolledCourse isCompleted={course.isCompleted} courseName={course.courseName} courseId={courseId} duration={course.duration} institute={course.institute} />
     </Layout>
   )
 }

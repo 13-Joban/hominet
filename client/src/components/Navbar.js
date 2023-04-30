@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import locofy from '../../public/images/gndec-fotor-bg-remover-20230410223713.png'
-import profilePic from '../../public/images/IMG_1480.jpg'
+import profilePic from '../../public/images/IMG_1480-modified.png'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -77,8 +77,8 @@ export default function Navbar() {
           <Image
             src={profilePic}
             className='rounded-full mr-2'
-            height={5}
-            width={50}
+            height={6}
+            width={60}
             alt='User Profile'
           />
         </Link>

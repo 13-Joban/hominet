@@ -10,7 +10,8 @@ function getAllSubjects(){
           academicYear: '2023',
           description: 'Graphics in the computers',
           image: 'https://example.com/graphics.jpg',
-          isEnrolled: false
+          isEnrolled: false,
+          isCompleted: false
         },
         {
           id: 2,
@@ -22,7 +23,8 @@ function getAllSubjects(){
           academicYear: '2023',
           description: 'Graphics in the computers',
           image: 'https://example.com/lab.jpg',
-          isEnrolled: false
+          isEnrolled: false,
+          isCompleted: false
         },
         {
           id: 3,
@@ -34,7 +36,8 @@ function getAllSubjects(){
           academicYear: '2023',
           description: 'Study about machine learning',
           image: 'https://example.com/lab.jpg',
-          isEnrolled: false
+          isEnrolled: false,
+          isCompleted: false
         }
       ];
       return subjects;
