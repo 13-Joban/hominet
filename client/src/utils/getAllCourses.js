@@ -72,4 +72,3 @@ function getAllCourses() {
 }
 export default getAllCourses;
 
-
