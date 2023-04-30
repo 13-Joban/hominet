@@ -1,9 +1,12 @@
-const express = require('express');
-const port = process.env.port
+const app = require('./app'); 
+const sequelize = require('./config/database');
 
-const app = express();
 
+const port = process.env.PORT || 4040;
+
+// synchronize the models with the database
+sequelize.sync();
 
 app.listen(() => {
-    console.log('app is listening at port  400' + port)
+    console.log('app is listening at port ' + port)
 }) 
