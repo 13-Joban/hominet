@@ -15,7 +15,7 @@ const courseRoutes = require('./routes/Course');
 const adminRoutes = require('./routes/admin');
 
 
-app.use('/api', courseRoutes);
+app.use('/api/courses', courseRoutes);
 app.use('/api/admin', adminRoutes);
 
 
