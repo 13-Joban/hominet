@@ -53,6 +53,19 @@ exports.enrollInCourse = async (req, res) => {
   }
 };
 
+exports.getEnrolledCourses = async (req, res) => {
+  try {
+    const studentId = req.user.crn;
+    const enrollments = await Enrollment.findAll({
+      where: { studentId },
+      include: Course,
+    });
+    res.json(enrollments);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
 
 exports.getCourseById  = async (req, res) => {
   try {
