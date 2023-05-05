@@ -36,6 +36,16 @@ const Course = db.define('Course', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  enrollmentEndDate: {
+    type: DataTypes.DATE,
+    defaultValue: '2023-05-20'
+    // allowNull: false
+  },
+  status: {
+    type: DataTypes.ENUM('draft', 'published', 'closed'),
+    defaultValue: 'draft'
+  }
 });
+// Course.sync();
 
 module.exports = Course;

@@ -3,12 +3,14 @@ const bcrypt = require('bcryptjs');
 
 const addStudent = async (req, res) => {
   try {
-    const { crn, password } = req.body;
+    const { crn, password, name, contactNo, semester, branch, year, passing_out_year } = req.body;
     // Hash the password before storing it in the database
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
     const newStudent = await Student.create({
       crn,
       password: hashedPassword,
+      name, contactNo, semester, branch, year, passing_out_year
     });
     res.status(200).json({
       status: 'success',

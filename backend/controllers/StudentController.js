@@ -40,6 +40,7 @@ exports.login = async (req, res) => {
   }
 };
 
+
 // Middleware to check if the user is authenticated
 exports.isAuthenticated = async (req, res, next) => {
   // Get the token from the cookie

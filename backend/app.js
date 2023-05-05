@@ -1,9 +1,11 @@
 const express = require('express');
-const dotenv  = require('dotenv');
+const dotenv = require('dotenv');
 const sequelize = require('./config/database');
 const cookieParser = require('cookie-parser');
 const app = express();
-dotenv.config({ path: './config.env' });
+dotenv.config({
+    path: './config.env'
+});
 const port = process.env.port || 4040;
 
 app.use(express.json());
@@ -28,7 +30,7 @@ app.use('/api/user', studentRoutes);
 
 app.listen(port, () => {
     console.log('app is listening at port ' + port)
-}) 
+})
 
 
 module.exports = app;
