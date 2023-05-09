@@ -96,3 +96,23 @@ exports.getEnrolledCourses = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 }
+exports.uploadCertificate = async (req, res) => {
+  try {
+    const courseId = req.params.courseId;
+    const enrollment = await Enrollment.findOne({where: {courseId: courseId}});
+    console.log('enrollment', enrollment);
+    if (!enrollment) {
+      return res.status(404).json({ message: 'Enrollment not found' });
+    }
+    
+    console.log(req.body);
+    // enrollment.certificate = ';
+    await enrollment.save();
+    // console.log(enrollment);
+
+    res.json(enrollment);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

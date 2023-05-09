@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { login } from './store/slices/studentSlice';
+import { adminlogin } from './store/slices/adminSlice';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 
@@ -19,6 +20,22 @@ export const getCourseById = createAsyncThunk(
     const url = `http://localhost:4040/api/courses/${id}`
 
     const response = await axios.get(url);
+    return response.data;
+  }
+);
+
+export const addNewCourse = createAsyncThunk(
+  'courses/addNewCourse',
+  async (course) => {
+    console.log(course);
+    const url = 'http://localhost:4040/api/admin/courses/add'
+    const token = Cookies.get('admin_token');
+    // console.log(token);
+    const response = await axios.post(url, course, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response.data);
+
     return response.data;
   }
 );
@@ -42,6 +59,28 @@ export const fetchEnrolledCourses = createAsyncThunk(
   }
 );
 
+export const useAdminLogin = () => {
+  const dispatch = useDispatch();
+
+  const loginHandler = async (username, password) => {
+    try {
+      const response = await axios.post('http://localhost:4040/api/admin/login', { username, password });
+
+      const { data: { token, admin } } = response;
+
+      console.log(token, admin);
+
+      // Save the JWT token in a cookie
+        Cookies.set('admin_token', token);
+      
+      dispatch(adminlogin(admin)); // dispatch the response data as the payload
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  };
+
+  return loginHandler;
+};
 
 
   export const useLogin = () => {
@@ -56,7 +95,7 @@ export const fetchEnrolledCourses = createAsyncThunk(
         console.log(token, user);
 
         // Save the JWT token in a cookie
-      Cookies.set('token', token);
+          Cookies.set('token', token);
         
         dispatch(login(user)); // dispatch the response data as the payload
       } catch (error) {

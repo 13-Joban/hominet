@@ -34,7 +34,7 @@ const Enrollment = sequelize.define('EnrolledCourse', {
     defaultValue: false,
   },
   certificate: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING,
   },
 });
 Enrollment.belongsTo(Course, {

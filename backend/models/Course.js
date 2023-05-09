@@ -43,7 +43,7 @@ const Course = db.define('Course', {
   },
   status: {
     type: DataTypes.ENUM('draft', 'published', 'closed'),
-    defaultValue: 'draft'
+    defaultValue: 'published'
   }
 });
 // Course.sync();

@@ -6,17 +6,19 @@ import { combineReducers } from 'redux';
 import coursesReducer from './slices/courseSlice';
 import subjectsReducer from './slices/subjectSlice';
 import studentReducer from './slices/studentSlice';
+import adminReducer from './slices/adminSlice';
 
 const rootReducer = combineReducers({
   courses: coursesReducer,
   subjects: subjectsReducer,
   student: studentReducer,
+  admin: adminReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['student']
+  whitelist: ['student', 'admin']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

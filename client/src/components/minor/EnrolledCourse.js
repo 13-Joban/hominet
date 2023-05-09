@@ -4,8 +4,10 @@ import 'react-toastify/dist/ReactToastify.css';
 // import {completeCourse } from '../../store/slices/courseSlice'
 import { useDispatch } from 'react-redux';
 import CompletedCourse from './CompletedCourse'
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-function EnrolledCourse({ isCompleted, courseId, courseName, duration, institute }) {
+function EnrolledCourse({ isCompleted, courseId, courseName, duration, institute , selectedEnrolledCourse}) {
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
 
@@ -23,16 +25,29 @@ function EnrolledCourse({ isCompleted, courseId, courseName, duration, institute
     event.preventDefault();
   };
 
-  const handleUpload = () => {
-    // Handle file upload logic here
+const handleUpload = async () => {
     if (selectedFile) {
-      console.log(selectedFile);
+      const url = `http://localhost:4040/api/courses/enrolledcourses/${courseId}/certificate`;
+  
+      const token = Cookies.get('token');
+  
+      // const formData = new FormData();
+      // formData.append('file', selectedFile);
+     
+      const response = await axios.put(url, selectedFile.name, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log(response.data); // Response from the server
       toast.success("File uploaded successfully!");
-      dispatch(completeCourse(courseId))
+      // dispatch(completeCourse(courseId))
     } else {
       toast.error("Please select a file to upload.");
     }
-  };
+};
+  
 
   if(isCompleted){
     return  <CompletedCourse courseName={courseName} duration={duration} institute={institute} certificateFile={selectedFile} />

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 // import getAllCourses from '../../../../utils/getAllCourses'
 import Layout from '../../../../components/Layout'
 import {useSelector, useDispatch} from 'react-redux'
-import {getCourseById} from '../../../../../src/api'
+import {fetchEnrolledCourses, getCourseById} from '../../../../../src/api'
 import EnrolledCourse from '../../../../components/minor/EnrolledCourse'
 
 function EnrolledCoursePage() {
@@ -13,12 +13,15 @@ function EnrolledCoursePage() {
   // console.log(id);
 
   const dispatch = useDispatch()
-  const selectedCourse = useSelector(state => state.courses.selectedCourse)
+  const enrolledCourses = useSelector(state => state.courses.enrolledCourses)
+  console.log(enrolledCourses);
+  const selectedEnrolledCourse = enrolledCourses.find(course => course.courseId === id)
+  const selectedCourse = selectedEnrolledCourse.Course;
   console.log(selectedCourse);
 
   useEffect(() => {
     if (id) {
-      dispatch(getCourseById(id))
+      dispatch(fetchEnrolledCourses())
     }
   }, [id])
 
@@ -28,7 +31,7 @@ function EnrolledCoursePage() {
 
   return (
     <Layout>
-      <EnrolledCourse isCompleted={selectedCourse.isCompleted} courseName={selectedCourse.name} courseId={id} duration={selectedCourse.duration} institute={selectedCourse.institute} />
+      <EnrolledCourse isCompleted={selectedCourse.isCompleted} courseName={selectedCourse.name} courseId={id} duration={selectedCourse.duration} institute={selectedCourse.institute} selectedEnrolledCourse={selectedEnrolledCourse} />
     </Layout>
   )
 }
