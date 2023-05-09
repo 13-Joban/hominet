@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Course = require('./Course');
 const Enrollment = sequelize.define('EnrolledCourse', {
   id: {
     type: DataTypes.INTEGER,
@@ -27,9 +28,16 @@ const Enrollment = sequelize.define('EnrolledCourse', {
     allowNull: false,
     defaultValue: DataTypes.NOW,
   },
+  isCompleted: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   certificate: {
     type: DataTypes.BLOB,
   },
 });
-
+Enrollment.belongsTo(Course, {
+  foreignKey: 'courseId',
+});
 module.exports = {Enrollment};

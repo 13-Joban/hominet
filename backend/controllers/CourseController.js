@@ -13,10 +13,10 @@ exports.getAllCourses = async (req, res) => {
 
 exports.enrollInCourse = async (req, res) => {
   try {
-    const courseId = req.params.courseId.split(':')[1];
+    const courseId = req.params.courseId;
     // console.log(req.user);
     const studentId = req.user.crn;
-    console.log(courseId);
+    // console.log(courseId);
     const course = await findCourseById(courseId);
 
     if (!course) {
@@ -53,25 +53,12 @@ exports.enrollInCourse = async (req, res) => {
   }
 };
 
-exports.getEnrolledCourses = async (req, res) => {
-  try {
-    const studentId = req.user.crn;
-    const enrollments = await Enrollment.findAll({
-      where: { studentId },
-      include: Course,
-    });
-    res.json(enrollments);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server Error' });
-  }
-};
-
 exports.getCourseById  = async (req, res) => {
   try {
     
-    const {courseId} = req.params
-    const course = await Course.findOne({courseId: courseId});
+    const courseId = req.params.courseId
+    const course = await Course.findOne({ where: { id: courseId } });
+    // console.log(course);
     res.json(course);
   } catch (err) {
     console.error(err);
@@ -83,7 +70,7 @@ exports.getCourseById  = async (req, res) => {
 const findCourseById  = async (courseId) => {
   try {
   
-    const course = await Course.findOne({courseId: courseId});
+    const course = await Course.findOne({ where: { id: courseId } });
     return course
   } catch (err) {
     console.error(err);
@@ -91,4 +78,21 @@ const findCourseById  = async (courseId) => {
     
   }
 }
+exports.getEnrolledCourses = async (req, res) => {
+  try {
+    const studentId = req.user.crn;
+    const enrolledCourses = await Enrollment.findAll({
+      where: {
+        studentId,
+      },
+      include: {
+        model: Course,
+      },
+    });
 
+    res.json(enrolledCourses);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+}

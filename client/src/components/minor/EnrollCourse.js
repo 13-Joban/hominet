@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { enrollCourse } from '../../store/slices/courseSlice';
+// import {enrollInCourse} from '../../store/slices/courseSlice'
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
-  // console.log('props in  enrollcourse component ', courseName, courseId, courseLink);
+  // console.log(courseName, courseId, courseLink, duration, offeredBy)
+
   const router = useRouter();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const student = useSelector(state => state.student.user);
+  const {crn, name, semester, branch, contactNo} = student;
+
+  // console.log(student);
   const [formData, setFormData] = useState({
-    urn: 2004603,
-    name: 'John Doe',
-    semester: 6,
-    parentBranch: 'Mechanical Engineering',
-    contactNo: 9876543210,
+    crn: crn,
+    name: name,
+    semester: semester,
+    parentBranch: branch,
+    contactNo: contactNo,
     courseId: `${courseId}`,
     courseName: `${courseName}`,
     sgpa1stSem: 10.0,
@@ -24,12 +31,25 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
     setFormData({ ...formData, [name]: value });
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData); // replace with actual form submission logic
-    console.log(courseId);
-    dispatch(enrollCourse(courseId));
-    router.push('/minor/enrolled/allcourses');
+    // console.log(formData); // replace with actual form submission logic
+    // console.log(courseId);
+    const url = `http://localhost:4040/api/courses/enroll/${courseId}`;
+    const token = Cookies.get('token');
+
+    try {
+      const response = await axios.post(url, null, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      console.log(response.data);
+      // update state or do something with the response
+    } catch (error) {
+      console.log(error);
+      // handle error
+    }
+    // dispatch(enrollInCourse(courseId));
+    // router.push('/minor/enrolled/allcourses');
   }
 
   return (
@@ -45,14 +65,22 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="urn" type="number" className="block text-gray-700 font-bold mb-2">University Roll No</label>
-          <input id="urn" type="text" name="urn" value={formData.urn} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <label htmlFor="crn" type="number" className="block text-gray-700 font-bold mb-2">College Roll No</label>
+          <input id="crn" type="text" name="crn" value={formData.crn}  onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
-          <input id="name" type="text" name="name" value={formData.name} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <input id="name" type="text" name="name" value={formData.name} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
         <div className="mb-4">
+          <label htmlFor="semester" className="block text-gray-700 font-bold mb-2">Semester</label>
+          <input id="semester" type="text" name="semester" value={formData.semester} onChange={handleInputChange}  className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="parentBranch" className="block text-gray-700 font-bold mb-2">Parent Branch</label>
+          <input id="parentBranch" type="text" name="parentBranch" value={formData.parentBranch} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly />
+        </div>
+        {/* <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="semester">
             Semester
           </label>
@@ -83,10 +111,10 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
             <option value="Civil Engineering">Civil Engineering</option>
             <option value="Production Engineering">Production Engineering</option>
           </select>
-        </div>
+        </div> */}
         <div className="mb-4">
           <label htmlFor="contactNo" type="number" className="block text-gray-700 font-bold mb-2">Contact Number</label>
-          <input id="contactNo" type="text" name="contactNo" value={formData.contactNo} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <input id="contactNo" type="text" name="contactNo" value={formData.contactNo}  onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
         <div className="mb-4">
           <label htmlFor="courseId" className="block text-gray-700 font-bold mb-2">Course Id</label>

@@ -1,4 +1,5 @@
 const Student = require('../models/Student');
+const Admin = require('../models/Admin');
 const bcrypt = require('bcryptjs');
 
 const addStudent = async (req, res) => {
@@ -27,7 +28,33 @@ const addStudent = async (req, res) => {
     });
   }
 };
+const addAdmin = async (req, res) => {
+  try {
+    const { username, password, name } = req.body;
+    // Hash the password before storing it in the database
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const newAdmin = await Admin.create({
+      username,
+      password: hashedPassword,
+      name
+    });
+    res.status(200).json({
+      status: 'success',
+      message: 'New admin added to the database',
+      data: {
+        admin: newAdmin,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Unable to add admin to the database',
+    });
+  }
+};
 
 module.exports = {
-  addStudent,
+  addStudent, addAdmin
 };

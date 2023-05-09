@@ -33,19 +33,19 @@ exports.login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
-    res.status(200).json({ message: 'Logged in successfully' });
+    res.status(200).json({ user: student, token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server Error' });
   }
 };
 
-
 // Middleware to check if the user is authenticated
 exports.isAuthenticated = async (req, res, next) => {
-  // Get the token from the cookie
-  const token = req.cookies.token;
-
+  // Get the token from the Authorization header
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
+  console.log(token)
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized access' });
   }
@@ -53,9 +53,10 @@ exports.isAuthenticated = async (req, res, next) => {
   try {
     // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const crn  = decoded.crn ;
+    const crn = decoded.crn;
     const student = await getStudentByCrn(crn);
-    req.user  = student;
+    req.user = student;
+    console.log(req.user);
     next();
   } catch (err) {
     console.error(err);

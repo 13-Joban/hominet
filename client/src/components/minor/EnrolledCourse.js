@@ -1,13 +1,13 @@
 import  { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {completeCourse } from '../../store/slices/courseSlice'
+// import {completeCourse } from '../../store/slices/courseSlice'
 import { useDispatch } from 'react-redux';
 import CompletedCourse from './CompletedCourse'
 
 function EnrolledCourse({ isCompleted, courseId, courseName, duration, institute }) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
 
 
   const handleFileChange = (event) => {
