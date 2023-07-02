@@ -10,23 +10,6 @@ const auth = require('../googledrive')
 const multer = require('multer');
 const { Readable } = require('stream');
 
-// const clientId = '592117409224-ln06h7s1694vfliqiaevnf7c0ifjcdfu.apps.googleusercontent.com'
-// const clientSecret = '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'
-// const redirecturi = 'https://developers.google.com/oauthplayground/'
-// const refreshtoken = '1//04ktw-H9_3iBTCgYIARAAGAQSNwF-L9Iri6Ypg5vf5V6P4XrFNXXKaTpvlVD9aXZmttfL4UX8wp368jOPhYB5sKM8fPVyXkcaVJQ'
-
-// // const oauthClient = new google.auth.OAuth2(clientId, clientSecret, redirecturi, refreshtoken);
-// const oauth2Client = new OAuth2Client(clientId, clientSecret, redirecturi);
-// oauth2Client.setCredentials({ refresh_token: refreshtoken });
-// console.log(oauth2Client);
-
-// // Function to refresh the access token
-// const getAccessToken = async () => {
-//   const { tokens } = await oauth2Client.refreshToken(refreshtoken);
-//   return tokens.access_token;
-// };
-
-
 
 exports.getAllCourses = async (req, res) => {
   try {
@@ -218,18 +201,3 @@ exports.uploadCertificate = async (req, res) => {
   // }
 
 
-  // Function to refresh the access token
-async function refreshAccessToken() {
-  try {
-
-
-    // Use the refresh token to obtain a new access token
-    const { tokens } = await oauth2Client.refreshToken(refreshtoken);
-    const accessToken = tokens.access_token;
-
-    return accessToken;
-  } catch (error) {
-    console.error('Error refreshing access token:', error);
-    throw error;
-  }
-}
