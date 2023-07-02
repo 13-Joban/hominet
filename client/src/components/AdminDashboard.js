@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-// import CreateCourseTask from './CreateCourseTask';
 import locofy from '../../public/images/gndec-fotor-bg-remover-20230410223713.png'
 import Link from 'next/link'
 import propic from '../../public/images/Admin-Profile-Vector-PNG-File.png'
@@ -23,13 +22,13 @@ const AdminDashboard = () => {
         </div>
         <div className="mt-2">
           <a href="/admindash" className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">Dashboard</a>
-          <a href="#" className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white mt-1">Students Record</a>
+          <a href="/studentrecord" className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">Student Record</a>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 p-10">
-        <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+        <h1 className="text-3xl font-medium mb-6 text-red">Admin Dashboard</h1>
         <div className="grid grid-cols-2 gap-6">
           <div className="bg-white p-6 shadow-md">
             <h2 className="text-lg font-semibold mb-4">Create a Course</h2>
@@ -39,7 +38,7 @@ const AdminDashboard = () => {
           
         </div>
       </div>
-      <Link href='/' className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 bg-gray-100'>
+      <Link href='/admindash' className='block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 bg-gray-100'>
           <Image
             src={propic}
             className='rounded-full m-2'

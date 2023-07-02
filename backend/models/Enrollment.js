@@ -1,6 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Course = require('./Course');
+const Student  = require('./Student');
+
 const Enrollment = sequelize.define('EnrolledCourse', {
   id: {
     type: DataTypes.INTEGER,
@@ -36,8 +38,16 @@ const Enrollment = sequelize.define('EnrolledCourse', {
   certificate: {
     type: DataTypes.STRING,
   },
+  session: {
+    type: DataTypes.STRING, // Change the data type to STRING
+    defaultValue: 'Jan-June 2023', // Set the default value for the "session" field
+    allowNull: false 
+  },
 });
+
+
 Enrollment.belongsTo(Course, {
   foreignKey: 'courseId',
 });
-module.exports = {Enrollment};
+
+module.exports =  {Enrollment};

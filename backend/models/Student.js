@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const {Enrollment} = require('./Enrollment');
-// const bcrypt = require('bcryptjs');
 
 const Student = db.define('Students', {
   crn: {
@@ -95,4 +94,4 @@ Student.hasMany(Enrollment, {
   as: 'enrolledCourses',
 });
 
-module.exports = Student;
+module.exports =  Student ;

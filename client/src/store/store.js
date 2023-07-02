@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web and AsyncStorage for react-native
 import { combineReducers } from 'redux';
@@ -25,8 +25,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
 
+
+
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: [...getDefaultMiddleware({ serializableCheck: false })], // Add serializableCheck: false to ignore non-serializable values temporarily
 });
 
 

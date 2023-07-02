@@ -12,11 +12,10 @@ import Layout from '../../../../components/Layout'
 function EnrollCoursePage() {
   const router = useRouter()
   const { id } = router.query
-  // console.log(id);
 
   const dispatch = useDispatch()
   const selectedCourse = useSelector(state => state.courses.selectedCourse)
-  console.log(selectedCourse);
+  // console.log(selectedCourse);
 
   useEffect(() => {
     if (id) {
@@ -36,6 +35,7 @@ function EnrollCoursePage() {
         duration={selectedCourse.duration}
         offeredBy={selectedCourse.institute}
         courseLink={selectedCourse.nptelLink}
+        session={selectedCourse.session}
       />
     </Layout>
   )

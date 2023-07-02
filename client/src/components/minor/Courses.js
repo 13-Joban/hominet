@@ -8,7 +8,7 @@ export default function Courses() {
   const dispatch = useDispatch();
   const allCourses = useSelector(state => state.courses.allCourses);
   const student = useSelector(state => state.student.user);
-  console.log(student);
+  // console.log(student);
   const enrolledCourses = useSelector(state => state.courses.enrolledCourses);
 
   useEffect(() => {

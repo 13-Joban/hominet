@@ -1,5 +1,32 @@
 const Course = require('../models/Course');
 const {Enrollment} = require('../models/Enrollment');
+const { google } = require('googleapis');
+const { OAuth2Client } = require('google-auth-library');
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const writeFileAsync = promisify(fs.writeFile);
+const auth = require('../googledrive')
+const multer = require('multer');
+const { Readable } = require('stream');
+
+// const clientId = '592117409224-ln06h7s1694vfliqiaevnf7c0ifjcdfu.apps.googleusercontent.com'
+// const clientSecret = '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'
+// const redirecturi = 'https://developers.google.com/oauthplayground/'
+// const refreshtoken = '1//04ktw-H9_3iBTCgYIARAAGAQSNwF-L9Iri6Ypg5vf5V6P4XrFNXXKaTpvlVD9aXZmttfL4UX8wp368jOPhYB5sKM8fPVyXkcaVJQ'
+
+// // const oauthClient = new google.auth.OAuth2(clientId, clientSecret, redirecturi, refreshtoken);
+// const oauth2Client = new OAuth2Client(clientId, clientSecret, redirecturi);
+// oauth2Client.setCredentials({ refresh_token: refreshtoken });
+// console.log(oauth2Client);
+
+// // Function to refresh the access token
+// const getAccessToken = async () => {
+//   const { tokens } = await oauth2Client.refreshToken(refreshtoken);
+//   return tokens.access_token;
+// };
+
+
 
 exports.getAllCourses = async (req, res) => {
   try {
@@ -18,6 +45,8 @@ exports.enrollInCourse = async (req, res) => {
     const studentId = req.user.crn;
     // console.log(courseId);
     const course = await findCourseById(courseId);
+
+    console.log('couresController', course);
 
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
@@ -45,6 +74,8 @@ exports.enrollInCourse = async (req, res) => {
       courseId,
       studentId,
     });
+
+    console.log('enrollment' , enrollment);
 
     res.json(enrollment);
   } catch (err) {
@@ -97,22 +128,108 @@ exports.getEnrolledCourses = async (req, res) => {
   }
 }
 exports.uploadCertificate = async (req, res) => {
+ 
   try {
     const courseId = req.params.courseId;
-    const enrollment = await Enrollment.findOne({where: {courseId: courseId}});
-    console.log('enrollment', enrollment);
+    const studentId = req.user.crn;
+    const enrollment = await Enrollment.findOne({ where: { courseId , studentId} });
+
     if (!enrollment) {
       return res.status(404).json({ message: 'Enrollment not found' });
     }
-    
-    console.log(req.body);
-    // enrollment.certificate = ';
-    await enrollment.save();
-    // console.log(enrollment);
 
+    if (!req.file || req.file.mimetype !== 'application/pdf') {
+      return res.status(400).json({ message: 'Please upload a PDF file' });
+    }
+
+    console.log('req file', req.file)
+    console.log('req file', req.file.mimetype)
+    console.log('req.file.path:', req.file && req.file.path);
+
+    // Create a new drive instance with the obtained access token
+    const drive = google.drive({ version: 'v3', auth: auth })
+    console.log('drive ', drive)
+
+    const fileMetadata = {
+      name: req.file.originalname,
+      mimeType: req.file.mimetype,
+      parents: ['1trv19bk3mkYPy__qaqf68ffTsYGjTpnA'], // Replace 'folderId' with the actual folder ID in your Google Drive where you want to store the certificates
+    };
+    console.log('metadata file', fileMetadata)
+
+    const media = {
+      mimeType: req.file.mimetype,
+      body: Readable.from(req.file.buffer), // Provide the file data as a readable stream
+    };
+    console.log('media file', media)
+
+    const uploadedFile = await drive.files.create({
+      resource: fileMetadata,
+      media: media, // Pass the media object containing the stream to the API
+      fields: 'id, webContentLink',
+    });
+
+    console.log('uploaded file', uploadedFile)
+
+    const certificateFile = {
+      name: req.file.originalname,
+      link: uploadedFile.data.webContentLink,
+    };
+    // console.log('enrollment1 ', enrollment);
+
+    enrollment.certificate = certificateFile.link;
+    enrollment.isCompleted = true;
+    
+    await enrollment.save();
+
+    // console.log('enrollment2 ', enrollment);
     res.json(enrollment);
   } catch (err) {
+
     console.error(err);
     res.status(500).json({ message: 'Server Error' });
   }
 };
+// }
+
+
+ // try {
+  //   const courseId = req.params.courseId;
+  //   const enrollment = await Enrollment.findOne({ where: { courseId } });
+
+  //   if (!enrollment) {
+  //     return res.status(404).json({ message: 'Enrollment not found' });
+  //   }
+
+  //   // if (!req.file || req.file.mimetype !== 'application/pdf') {
+  //   //   return res.status(400).json({ message: 'Please upload a PDF file' });
+  //   // }
+
+  //   console.log(req.file);
+
+  //   enrollment.certificate = req.file.name;
+  //   enrollment.isCompleted = true;
+  //   await enrollment.save();
+
+  //   res.json(enrollment);
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).json({ message: 'Server Error' });
+  // }
+
+
+  // Function to refresh the access token
+async function refreshAccessToken() {
+  try {
+
+
+    // Use the refresh token to obtain a new access token
+    const { tokens } = await oauth2Client.refreshToken(refreshtoken);
+    const accessToken = tokens.access_token;
+
+    return accessToken;
+  } catch (error) {
+    console.error('Error refreshing access token:', error);
+    throw error;
+  }
+}

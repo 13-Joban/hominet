@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
+function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, session}) {
   // console.log(courseName, courseId, courseLink, duration, offeredBy)
 
   const router = useRouter();
@@ -22,6 +22,7 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
     contactNo: contactNo,
     courseId: `${courseId}`,
     courseName: `${courseName}`,
+    session: `${session}`,
     sgpa1stSem: 10.0,
     sgpa2ndSem: 10.0
   });
@@ -42,14 +43,14 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
       const response = await axios.post(url, null, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      console.log(response.data);
+      // console.log(response.data);
       // update state or do something with the response
     } catch (error) {
       console.log(error);
       // handle error
     }
     // dispatch(enrollInCourse(courseId));
-    // router.push('/minor/enrolled/allcourses');
+    router.push('/minor/enrolled/allcourses');
   }
 
   return (
@@ -124,6 +125,11 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy}) {
           <label htmlFor="courseName" className="block text-gray-700 font-bold mb-2">Course Name</label>
           <input id="courseName" type="text" name="courseName" value={formData.courseName} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
+        <div className="mb-4">
+          <label htmlFor="courseSession" className="block text-gray-700 font-bold mb-2">Course Session</label>
+          <input id="courseSession" type="text" name="courseSession" value={formData.session} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
+        </div>
+        
         <div className="mb-4">
           <label htmlFor="sgpa1stSem" className="block text-gray-700 font-bold mb-2">SGPA (1st Sem)</label>
           <input id="sgpa1stSem" type="text" name="sgpa1stSem" value={formData.sgpa1stSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />

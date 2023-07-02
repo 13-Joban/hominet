@@ -59,6 +59,19 @@ export const fetchEnrolledCourses = createAsyncThunk(
   }
 );
 
+export const getEnrolledStudents = async () => {
+  const url = 'http://localhost:4040/api/admin/getEnrolledStudents';
+  const token = Cookies.get('admin_token');
+  try {
+    const response = await axios.get(url,  { headers: { Authorization: `Bearer ${token}` } });
+    return response.data; // Return the actual data from the API response
+  } catch (error) {
+    console.error('Error fetching enrolled students:', error);
+    return []; // Return an empty array in case of an error
+  }
+};
+
+
 export const useAdminLogin = () => {
   const dispatch = useDispatch();
 
@@ -83,7 +96,7 @@ export const useAdminLogin = () => {
 };
 
 
-  export const useLogin = () => {
+export const useLogin = () => {
     const dispatch = useDispatch();
 
     const loginHandler = async (crn, password) => {

@@ -1,7 +1,7 @@
 import  { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import {completeCourse } from '../../store/slices/courseSlice'
+import {completeCourse } from '../../store/slices/courseSlice'
 import { useDispatch } from 'react-redux';
 import CompletedCourse from './CompletedCourse'
 import axios from 'axios';
@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 
 function EnrolledCourse({ isCompleted, courseId, courseName, duration, institute , selectedEnrolledCourse}) {
   const [selectedFile, setSelectedFile] = useState(null);
+  console.log(selectedEnrolledCourse);
   const dispatch = useDispatch();
 
 
@@ -31,16 +32,28 @@ const handleUpload = async () => {
   
       const token = Cookies.get('token');
   
-      // const formData = new FormData();
-      // formData.append('file', selectedFile);
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      // const filename = {
+      //   name: selectedFile.name
+      // }
+      // console.log(filename);
+
+      // console.log(formData);
      
-      const response = await axios.put(url, selectedFile.name, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      // const response = await axios.post(url, filename, {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // });
+      const response = await axios.post(url, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data', // Set the content type for the form data
+          },
+        });
   
-      console.log(response.data); // Response from the server
+      console.log('response in client', response); // Response from the server
       toast.success("File uploaded successfully!");
       // dispatch(completeCourse(courseId))
     } else {
@@ -49,8 +62,8 @@ const handleUpload = async () => {
 };
   
 
-  if(isCompleted){
-    return  <CompletedCourse courseName={courseName} duration={duration} institute={institute} certificateFile={selectedFile} />
+  if(selectedEnrolledCourse.isCompleted){
+    return  <CompletedCourse courseName={courseName} duration={duration} institute={institute} certificateFile={selectedEnrolledCourse.certificate} />
   }
 
   return (

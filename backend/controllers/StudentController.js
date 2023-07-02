@@ -40,6 +40,11 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.me = async (req, res) => {
+  const student = req.user;
+  res.json(student)
+
+}
 // Middleware to check if the user is authenticated
 exports.isAuthenticated = async (req, res, next) => {
   // Get the token from the Authorization header
@@ -55,8 +60,10 @@ exports.isAuthenticated = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const crn = decoded.crn;
     const student = await getStudentByCrn(crn);
+
+    console.log('student  is logged in ', student)
     req.user = student;
-    console.log(req.user);
+    // console.log(req.user);
     next();
   } catch (err) {
     console.error(err);

@@ -25,6 +25,11 @@ const CreateCourseTask = () => {
   };
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    if (!course.id || !course.name || !course.institute || !course.duration || !course.nptelLink || !course.session || !course.enrollmentEndDate) {
+      alert('Please fill out all fields.');
+      return;
+    }
+  
 
     const url = 'http://localhost:4040/api/admin/courses/add'
     const token = Cookies.get('admin_token');
@@ -32,7 +37,7 @@ const CreateCourseTask = () => {
     const response = await axios.post(url, course, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response.data);
+    // console.log(response.data);
     // console.log(course);
   
     setCourse({
@@ -61,7 +66,7 @@ const CreateCourseTask = () => {
         </div>
         <div className="mt-2">
           <a href="/admindash" className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">Dashboard</a>
-          <a href="#" className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white mt-1">Students Record</a>
+          <a href="/studentrecord" className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white mt-1">Students Record</a>
         </div>
       </div>
     <div className="max-w-2xl mx-auto p-8">

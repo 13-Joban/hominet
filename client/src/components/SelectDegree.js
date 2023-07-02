@@ -28,12 +28,12 @@ export default function SelectDegree() {
           >
             Minor
           </button>
-          <button
+          {/* <button
             className=" text-red text-lg  lg:text-xl bg-white hover:bg-gray-300 font-normal border-2 w-full border-grey rounded-full py-2 px-20  transition duration-300"
             onClick={handleHonoursClick}
           >
             Honours
-          </button>
+          </button> */}
       </div>
     </div>
   );
