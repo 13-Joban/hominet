@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-// import {enrollInCourse} from '../../store/slices/courseSlice'
+import {updateSGPA} from '../../store/slices/studentSlice'
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
@@ -9,9 +9,9 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
   // console.log(courseName, courseId, courseLink, duration, offeredBy)
 
   const router = useRouter();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const student = useSelector(state => state.student.user);
-  const {crn, name, semester, branch, contactNo} = student;
+  const {crn, name, semester, branch, contactNo, sgpa1stSem, sgpa2ndSem} = student;
 
   // console.log(student);
   const [formData, setFormData] = useState({
@@ -23,8 +23,8 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
     courseId: `${courseId}`,
     courseName: `${courseName}`,
     session: `${session}`,
-    sgpa1stSem: 10.0,
-    sgpa2ndSem: 10.0
+    sgpa1stSem: sgpa1stSem,
+    sgpa2ndSem: sgpa2ndSem
   });
 
   const handleInputChange = (event) => {
@@ -45,6 +45,19 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
       });
       // console.log(response.data);
       // update state or do something with the response
+       // Assuming response.data contains the updated SGPA values
+
+       
+      //  const updatedSGPA = {
+      //   sgpa1stSem: response.data.sgpa1stSem,
+      //   sgpa2ndSem: response.data.sgpa2ndSem
+      // };
+      // console.log(response.data);
+
+      // // Dispatch the action to update SGPA
+      // dispatch(updateSGPA(updatedSGPA));
+      // console.log(student);
+      
     } catch (error) {
       console.log(error);
       // handle error
@@ -132,11 +145,11 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
         
         <div className="mb-4">
           <label htmlFor="sgpa1stSem" className="block text-gray-700 font-bold mb-2">SGPA (1st Sem)</label>
-          <input id="sgpa1stSem" type="text" name="sgpa1stSem" value={formData.sgpa1stSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <input id="sgpa1stSem" required type="text" name="sgpa1stSem" value={formData.sgpa1stSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
         </div>
         <div className="mb-4">
           <label htmlFor="sgpa2ndSem" className="block text-gray-700 font-bold mb-2">SGPA (2nd Sem)</label>
-          <input id="sgpa2ndSem" type="text" name="sgpa2ndSem" value={formData.sgpa2ndSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
+          <input id="sgpa2ndSem" required type="text" name="sgpa2ndSem" value={formData.sgpa2ndSem} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" />
         </div>
         <div className="mb-4 text-center">
           <button type="submit" className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Register for Course</button>

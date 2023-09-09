@@ -24,9 +24,9 @@ exports.getAllCourses = async (req, res) => {
 exports.enrollInCourse = async (req, res) => {
   try {
     const courseId = req.params.courseId;
-    // console.log(req.user);
+    console.log(req.user);
     const studentId = req.user.crn;
-    // console.log(courseId);
+    console.log(courseId);
     const course = await findCourseById(courseId);
 
     console.log('couresController', course);

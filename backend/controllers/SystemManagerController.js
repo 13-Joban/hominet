@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const addStudent = async (req, res) => {
   try {
+
     const { crn, password, name, contactNo, semester, branch, year, passing_out_year } = req.body;
     // Hash the password before storing it in the database
     const salt = await bcrypt.genSalt(10);

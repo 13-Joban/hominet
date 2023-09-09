@@ -23,13 +23,14 @@ const courseRoutes = require('./routes/Course');
 const adminRoutes = require('./routes/admin');
 const systemManagerRoutes = require('./routes/SystemManager');
 const studentRoutes = require('./routes/Student');
-
+const subjectRoutes = require('./routes/Subject');
 
   
 app.use('/api/system-manager', systemManagerRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', studentRoutes);
+app.use('/api/subjects', subjectRoutes);
 
 
 app.listen(port, () => {

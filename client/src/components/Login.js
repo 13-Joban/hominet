@@ -17,8 +17,7 @@ export default function LoginPage() {
       return;
     }
     try {
-      const student = await loginHandler(username, password);
-      console.log(student);
+      await loginHandler(username, password);
       router.push('/choose-degree');
     } catch (err) {
       alert('Invalid credentials');
@@ -55,19 +54,22 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row items-center justify-center">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-medium lg:font-bold py-1  px-2 lg:py-2 lg:px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-medium lg:font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 lg:mb-0 lg:mr-2 w-full lg:w-auto"
           >
             Sign In
           </button>
-          {/* <a
-            className="inline-block align-baseline font-bold text-xs lg:text-sm text-blue-500 hover:text-blue-800"
-            href="#"
+          {/* <button
+              onClick={() => {
+                console.log("Register button clicked");
+                router.push('/register');
+              }}
+            
+            className="bg-blue-500 hover:bg-blue-700 text-white font-medium lg:font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 lg:mb-0 lg:ml-2 w-full lg:w-auto"
           >
-            Forgot Password?
-          </a> */}
+            Register
+          </button> */}
         </div>
       </form>
     </div>

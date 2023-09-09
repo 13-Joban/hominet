@@ -1,12 +1,6 @@
 import Head from 'next/head'
-// import Image from 'next/image'
 import { Open_Sans } from 'next/font/google'
-// import styles from '@/styles/Home.module.css'
-// import SelectDegree from '../components/SelectDegree';
-// import EnrollCourseHonours from "../components/honours/EnrollCourse";
-// import EnrollCourseMinor from "../components/minor/EnrollCourse";
-// import Courses from '../components/minor/Courses';
-// import LoginPage from './login';
+
 import Login from '../components/Login'
 
 const openSans = Open_Sans({ subsets: ["latin"] });

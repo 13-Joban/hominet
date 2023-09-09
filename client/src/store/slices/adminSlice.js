@@ -15,7 +15,10 @@ const adminSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
     }
-  }
+  }, 
+  extraReducers: (builder)=> {
+    // Define extra reducers using builder
+  },
 });
 
 export const { adminlogin, adminlogout } = adminSlice.actions;

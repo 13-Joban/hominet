@@ -111,6 +111,8 @@ export const useLogin = () => {
           Cookies.set('token', token);
         
         dispatch(login(user)); // dispatch the response data as the payload
+
+        return true; // Return true to indicate successful login
       } catch (error) {
         throw new Error(error.response.data.message);
       }
@@ -118,4 +120,25 @@ export const useLogin = () => {
   
     return loginHandler;
   };
+export const useRegister = () => {
+  
+  const registerHandler = async (studentData) => {
+    try {
+      const response = await axios.post('http://localhost:4040/api/system-manager/addStudent', studentData);
+
+      const { data: { student } } = response;
+
+      console.log( student);
+
+      return true; // Return true to indicate successful login
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  };
+
+  return registerHandler;
+
+}
+
+
   
