@@ -1,4 +1,5 @@
 const Course = require('../models/Course');
+const Student = require('../models/Student');
 const {Enrollment} = require('../models/Enrollment');
 const { google } = require('googleapis');
 const { OAuth2Client } = require('google-auth-library');
@@ -13,13 +14,32 @@ const { Readable } = require('stream');
 
 exports.getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.findAll();
+    const studentId = req.user.crn;
+    const student = await getStudentById(studentId);
+
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    let courses;
+
+    if (student.degreeType === 'Minor') {
+      courses = await Course.findAll({ where: { type: 'M' } });
+    } else if (student.degreeType === 'Honours') {
+      courses = await Course.findAll({ where: { type: 'H' } });
+    } else {
+      // Handle other cases or provide a default
+      return res.status(400).json({ message: 'Invalid degreeType' });
+    }
+
     res.json(courses);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+
 
 exports.enrollInCourse = async (req, res) => {
   try {
@@ -28,8 +48,6 @@ exports.enrollInCourse = async (req, res) => {
     const studentId = req.user.crn;
     console.log(courseId);
     const course = await findCourseById(courseId);
-
-    console.log('couresController', course);
 
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
@@ -56,9 +74,7 @@ exports.enrollInCourse = async (req, res) => {
     const enrollment = await Enrollment.create({
       courseId,
       studentId,
-    });
-
-    console.log('enrollment' , enrollment);
+    })
 
     res.json(enrollment);
   } catch (err) {
@@ -95,12 +111,21 @@ const findCourseById  = async (courseId) => {
 exports.getEnrolledCourses = async (req, res) => {
   try {
     const studentId = req.user.crn;
+    const student = await getStudentById(studentId);
+
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
     const enrolledCourses = await Enrollment.findAll({
       where: {
         studentId,
       },
       include: {
         model: Course,
+        where: {
+          type: student.degreeType === 'Minor' ? 'M' : 'H',
+        },
       },
     });
 
@@ -111,11 +136,12 @@ exports.getEnrolledCourses = async (req, res) => {
   }
 }
 exports.uploadCertificate = async (req, res) => {
- 
   try {
     const courseId = req.params.courseId;
     const studentId = req.user.crn;
-    const enrollment = await Enrollment.findOne({ where: { courseId , studentId} });
+    const studentUrn = req.user.urn;
+    const degreeType = req.user.degreeType; // Assuming you have 'degreeType' in your user object
+    const enrollment = await Enrollment.findOne({ where: { courseId, studentId } });
 
     if (!enrollment) {
       return res.status(404).json({ message: 'Enrollment not found' });
@@ -125,54 +151,65 @@ exports.uploadCertificate = async (req, res) => {
       return res.status(400).json({ message: 'Please upload a PDF file' });
     }
 
-    console.log('req file', req.file)
-    console.log('req file', req.file.mimetype)
-    console.log('req.file.path:', req.file && req.file.path);
+    // Determine filename and folder based on degreeType
+    let fileName, folderId;
+    if (degreeType === 'Minor') {
+      fileName = `minor_mooc_${courseId}_${studentUrn}.pdf`;
+      folderId = '1y0EHpX95Hw8dFVwUAygfu-NO0CvLwgy3'; // Minor folder ID
+    } else if (degreeType === 'Honours') {
+      fileName = `honours_mooc_${courseId}_${studentUrn}.pdf`;
+      folderId = '1JXPYBQxhZWwuVX4TEQ8BridKqY9F2QPA'; // Honours folder ID
+    } else {
+      // Handle other cases or provide a default
+      return res.status(400).json({ message: 'Invalid degreeType' });
+    }
 
     // Create a new drive instance with the obtained access token
-    const drive = google.drive({ version: 'v3', auth: auth })
-    console.log('drive ', drive)
+    const drive = google.drive({ version: 'v3', auth: auth });
 
     const fileMetadata = {
-      name: req.file.originalname,
-      mimeType: req.file.mimetype,
-      parents: ['1trv19bk3mkYPy__qaqf68ffTsYGjTpnA'], // Replace 'folderId' with the actual folder ID in your Google Drive where you want to store the certificates
+      name: fileName,
+      parents: [folderId], // Use the folder ID based on the degreeType
     };
-    console.log('metadata file', fileMetadata)
 
     const media = {
-      mimeType: req.file.mimetype,
+      mimeType: 'application/pdf', // Set the MIME type for PDF files
       body: Readable.from(req.file.buffer), // Provide the file data as a readable stream
     };
-    console.log('media file', media)
 
     const uploadedFile = await drive.files.create({
       resource: fileMetadata,
-      media: media, // Pass the media object containing the stream to the API
+      media: media,
       fields: 'id, webContentLink',
     });
 
-    console.log('uploaded file', uploadedFile)
-
     const certificateFile = {
-      name: req.file.originalname,
+      name: fileName,
       link: uploadedFile.data.webContentLink,
     };
-    // console.log('enrollment1 ', enrollment);
 
     enrollment.certificate = certificateFile.link;
     enrollment.isCompleted = true;
-    
+
     await enrollment.save();
 
-    // console.log('enrollment2 ', enrollment);
     res.json(enrollment);
   } catch (err) {
-
     console.error(err);
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+const getStudentById = async (studentId) => {
+  try {
+    // Assuming you have a model for students (e.g., Student)
+    const student = await Student.findOne({ where: { crn: studentId } });
+    return student;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // }
 
 

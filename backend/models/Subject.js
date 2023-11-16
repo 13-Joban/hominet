@@ -2,11 +2,6 @@ const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 
 const Subject = db.define('Subject', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
   subjectName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -14,6 +9,8 @@ const Subject = db.define('Subject', {
   subjectCode: {
     type: DataTypes.STRING,
     allowNull: false,
+    primaryKey: true,
+    unique: true,
   },
   subjectType: {
     type: DataTypes.STRING,
@@ -25,14 +22,6 @@ const Subject = db.define('Subject', {
   },
   session: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  academicYear: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
     allowNull: false,
   },
   isEnrolled: {
@@ -47,8 +36,15 @@ const Subject = db.define('Subject', {
   },
   enrollmentEndDate: {
     type: DataTypes.DATE,
-    defaultValue: '2024-05-20'
-    // allowNull: false
+    defaultValue: '2024-05-20',
+  },
+  resultSubmissionStartDate: {
+    type: DataTypes.DATE,
+    defaultValue: '2024-07-12',
+  },
+  resultSubmissionEndDate: {
+    type: DataTypes.DATE,
+    defaultValue: '2024-07-19',
   },
 });
 

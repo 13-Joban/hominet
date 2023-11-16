@@ -1,4 +1,4 @@
-import AdminDashBoard from '../components/AdminDashBoard';
+import AdminDashBoard from '../../../components/AdminDash_Honors';
 
 export default function AdminDash() {
   return (
@@ -6,3 +6,4 @@ export default function AdminDash() {
       <AdminDashBoard/>
   );
 }
+

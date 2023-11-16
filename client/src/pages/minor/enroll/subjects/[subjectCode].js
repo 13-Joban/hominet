@@ -1,32 +1,34 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import findSubjectByCode from '../../../../utils/findSubjectByCode'
-import getAllSubjects from '../../../../utils/getAllSubjects'
+import { useDispatch, useSelector } from 'react-redux'
+// import findSubjectByCode from '../../../../utils/findSubjectByCode'
+// import getAllSubjects from '../../../../utils/getAllSubjects'
 import Layout from '../../../../components/Layout'
 import EnrollSubject from '../../../../components/minor/EnrollSubject'
+import { getSubjectByCode } from '../../../../api'
 
 function EnrollSubjectPage() {
   const router = useRouter()
   const { subjectCode } = router.query
-  const subjects = getAllSubjects()
-  const [subject, setSubject] = useState(null)
+
+   const dispatch = useDispatch()
+  const selectedSubject = useSelector(state => state.subjects.selectedSubject)
 
   useEffect(() => {
     if (subjectCode) {
-      const foundSubject = findSubjectByCode(subjects, subjectCode)
-      setSubject(foundSubject)
+      dispatch(getSubjectByCode(subjectCode))
     }
   }, [subjectCode])
 
-  if (!subjectCode || subject === null) {
+  if (!subjectCode || selectedSubject === null) {
     return <div>Loading...</div>
   }
 
   return (
     <Layout>
       <EnrollSubject
-        subjectName={subject.subjectName}
-        subjectCode={subject.subjectCode}
+        subjectName={selectedSubject.subjectName}
+        subjectCode={selectedSubject.subjectCode}
       />
     </Layout>
   )

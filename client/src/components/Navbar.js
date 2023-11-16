@@ -3,25 +3,27 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import locofy from '../../public/images/gndec-fotor-bg-remover-20230410223713.png'
-import profilePic from '../../public/images/IMG_1480-modified.png'
+import profilePic from '../../public/images/student.png'
 
-export default function Navbar() {
+export default function Navbar({degreeType}) {
+  console.log(degreeType)
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <nav className='flex items-center justify-between flex-wrap p-4 bg-skyblue mb-4'>
       <div className='flex items-center flex-shrink-0 text-grey mr-6 lg:mr-72'>
-        <Link href='/choose-degree' legacyBehavior>
-        <a >
-          <Image
-            src={locofy}
-            className='mr-2'
-            width={70}
-            height={7}
-            alt='Logo'
-          />
-        </a>
-        </Link>
+      <Link href={degreeType === 'Minor' ? '/minor/enroll/allcourses' : '/honours/enroll/allcourses'} legacyBehavior>
+  <a>
+    <Image
+      src={locofy}
+      className='mr-2'
+      width={70}
+      height={7}
+      alt='Logo'
+    />
+  </a>
+</Link>
+
       </div>
       <div className='block lg:hidden'>
         <button
@@ -49,16 +51,35 @@ export default function Navbar() {
           }`}
       >
         <div className='lg:text-xl text-sm font-normal lg:flex-grow'>
-          <Link href='/minor/enroll/allcourses' legacyBehavior>
-            <a className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'>
-              Home
-            </a>
-          </Link>
-          <Link href='/minor/enrolled/allcourses' legacyBehavior>
-            <a className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'>
-              My Courses
-            </a>
-          </Link>
+        {degreeType === 'Minor' ? (
+            <>
+              <Link href='/minor/enroll/allcourses' legacyBehavior>
+                <a className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'>
+                  Home
+                </a>
+              </Link>
+              <Link href='/minor/enrolled/allcourses' legacyBehavior>
+                <a className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'>
+                  My Courses
+                </a>
+              </Link>
+            </>
+          ) : (
+            // Add links for honors degree type here
+            <>
+              <Link href='/honours/enroll/allcourses' legacyBehavior>
+                <a className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'>
+                  Home
+                </a>
+              </Link>
+              <Link href='/honours/enrolled/allcourses' legacyBehavior>
+                <a className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'>
+                  My Courses
+                </a>
+              </Link>
+            </>
+          )}
+
           <Link href='https://gndec.ac.in/?q=node%2F7' passHref legacyBehavior>
             <a target='_blank' className='block mt-4 px-4 lg:inline-block lg:mt-0 text-white-200 mr-4 hover:text-red'>
               Vision

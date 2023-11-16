@@ -1,10 +1,8 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-// import findCourseById from '../../../../utils/findCourseById'
-// import getAllCourses from '../../../../utils/getAllCourses'
 import Layout from '../../../../components/Layout'
 import {useSelector, useDispatch} from 'react-redux'
-import {fetchEnrolledCourses, getCourseById} from '../../../../../src/api'
+import {fetchEnrolledCourses} from '../../../../../src/api'
 import EnrolledCourse from '../../../../components/minor/EnrolledCourse'
 
 function EnrolledCoursePage() {
@@ -14,11 +12,8 @@ function EnrolledCoursePage() {
 
   const dispatch = useDispatch()
   const enrolledCourses = useSelector(state => state.courses.enrolledCourses)
-  console.log(enrolledCourses);
   const selectedEnrolledCourse = enrolledCourses.find(course => course.courseId === id)
   const selectedCourse = selectedEnrolledCourse.Course;
-  console.log(selectedCourse);
-
   useEffect(() => {
     if (id) {
       dispatch(fetchEnrolledCourses())

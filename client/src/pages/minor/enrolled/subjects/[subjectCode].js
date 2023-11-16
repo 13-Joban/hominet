@@ -1,37 +1,44 @@
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-import findSubjectByCode from '../../../../utils/findSubjectByCode'
-import getAllSubjects from '../../../../utils/getAllSubjects'
-import Layout from '../../../../components/Layout'
-import EnrolledSubject from '../../../../components/minor/EnrolledSubject'
-import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEnrolledSubjects, getAllSubjects } from '../../../../api';
+import Layout from '../../../../components/Layout';
+import EnrolledSubject from '../../../../components/minor/EnrolledSubject';
 
 function EnrolledSubjectPage() {
-  const router = useRouter()
-  const { subjectCode } = router.query
-  const subjects = useSelector(state => state.subjects.enrolledSubjects)
-  const [subject, setSubject] = useState(null)
+  const router = useRouter();
+  const { subjectCode } = router.query;
+  const dispatch = useDispatch();
+
+  // Use useSelector to get data from the Redux store
+  const enrolledSubjects = useSelector((state) => state.subjects.enrolledSubjects);
+  // const allSubjects = useSelector((state) => state.subjects.allSubjects);
+
+  // Find the selected subject using array methods
+  const selectedSubject = enrolledSubjects.find((sub) => sub.subjectCode === subjectCode);
 
   useEffect(() => {
     if (subjectCode) {
-      const foundSubject = findSubjectByCode(subjects, subjectCode)
-      setSubject(foundSubject)
+      dispatch(fetchEnrolledSubjects());
+      dispatch(getAllSubjects());
     }
-  }, [subjectCode])
+  }, [subjectCode, dispatch]);
 
-  if (!subjectCode || subject === null) {
-    return <div>Loading...</div>
+  if (!subjectCode || selectedSubject == null) {
+    return <div>Loading...</div>;
   }
 
   return (
     <Layout>
       <EnrolledSubject
-        subjectName={subject.subjectName}
+        isCompleted={selectedSubject.isCompleted}
+        selectedEnrolledSubject={selectedSubject}
+        subjectName={selectedSubject.subjectName}
         subjectCode={subjectCode}
-        credits={subject.credits}
+        credits={selectedSubject.credits}
       />
     </Layout>
-  )
+  );
 }
 
-export default EnrolledSubjectPage
+export default EnrolledSubjectPage;

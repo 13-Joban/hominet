@@ -1,11 +1,18 @@
 import React from 'react';
 import { useTable, useFilters, usePagination } from 'react-table';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { useRouter} from 'next/router';
 import locofy from '../../public/images/gndec-fotor-bg-remover-20230410223713.png';
-
+import { adminLogout} from '../api'
 const StudentRecord = ({ data }) => {
     const columns = React.useMemo(
         () => [
+          {
+            Header: 'URN',
+            accessor: 'urn',
+          },
           {
             Header: 'CRN',
             accessor: 'crn',
@@ -21,8 +28,17 @@ const StudentRecord = ({ data }) => {
           {
             Header: 'Semester',
             accessor: 'semester',
-          }
+          },
           // Add more columns as needed
+          {
+            Header: 'Student Details',
+            accessor: 'Student details', // You can use any key you want
+            Cell: ({ row }) => (
+              <Link href={`/admin/StudentProfile/${row.original.crn}`}> {/* Pass CRN as a parameter */}
+              <div className="px-4 py-2 bg-blue-500 text-white text-center rounded-lg">View Profile</div>
+            </Link>
+            ),
+          },
         ],
         []
       );
@@ -51,6 +67,45 @@ const StudentRecord = ({ data }) => {
 
   const { globalFilter, pageIndex, pageSize } = state;
 
+
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      // Dispatch the adminLogout action
+      await dispatch(adminLogout());
+      router.push('/admin')
+
+      // Optionally, you can redirect the user to the login page or perform other actions
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  };
+
+  const pathname = router.pathname;
+  const  dashboardLink = pathname.includes("/admin/honours/studentrecord") ? '/admin/honours' : '/admin/minor'
+ 
+
+  // Define a function to determine the text based on the URL
+  const getHeaderText = () => {
+    
+    
+    // Check if the URL contains "/admin/honours/studentrecord"
+    if (pathname.includes("/admin/honours/studentrecord")) {
+      return "Honours Degree Record";
+    }
+
+    // Check if the URL contains "/admin/minor/studentrecord"
+    if (pathname.includes("/admin/minor/studentrecord")) {
+      return "Minor Degree Record";
+    }
+
+    // Default text if no match
+    return "Student Record";
+  };
+
   return (
     <div className="flex h-screen">
       {/* Left Sidebar */}
@@ -62,10 +117,15 @@ const StudentRecord = ({ data }) => {
           </div>
         </div>
         <div className="mt-2">
-          <a href="/admindash" className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
+          <a href={dashboardLink} className="block px-4 py-2 text-gray-200 hover:bg-gray-700 hover:text-white">
             Dashboard
           </a>
         </div>
+        <div className="mt-auto px-4 py-2 border-t border-gray-700 hover:bg-gray-700 text-white block cursor-pointer" onClick={handleLogout}>
+        Logout
+        </div>
+
+        
       </div>
 
       {/* Main Content */}
@@ -82,7 +142,7 @@ const StudentRecord = ({ data }) => {
         </div> */}
 
         <div className='mb-4 '>
-            <p className='text-red font-medium  text-2xl'>Minor Degree  Session Jan-June 2023 </p>
+        <p className='text-red font-medium  text-2xl'>{getHeaderText()}</p>
         </div>
 
         {/* Table */}

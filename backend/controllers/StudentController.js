@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
+const Course = require('../models/Course');
 
 exports.login = async (req, res) => {
   try {
@@ -50,7 +51,7 @@ exports.isAuthenticated = async (req, res, next) => {
   // Get the token from the Authorization header
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
-  console.log(token)
+  // console.log(token)
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized access' });
   }
@@ -61,7 +62,7 @@ exports.isAuthenticated = async (req, res, next) => {
     const crn = decoded.crn;
     const student = await getStudentByCrn(crn);
 
-    console.log('student  is logged in ', student)
+    // console.log('student is logged in ', student)
     req.user = student;
     // console.log(req.user);
     next();
@@ -79,4 +80,50 @@ const getStudentByCrn = async (crn) => {
       throw new Error('Error in getting student by CRN');
     }
 };
+
+exports.updateSgpa = async (req, res) => {
+  try {
+    const { crn, sgpa } = req.body;
+
+    // Find the student by CRN
+    const student = await Student.findOne({ where: { crn } });
+
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    // Update SGPA fields
+    await student.update(sgpa);
+
+    res.status(200).json({ message: 'SGPA updated successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
   
+// exports.getEnrolledCoursesByCRN = async (req, res) => {
+//   try {
+//     const { crn } = req.params;
+
+//     // Find the student by CRN
+//     const student = await getStudentByCrn(crn);
+
+//     if (!student) {
+//       return res.status(404).json({ message: 'Student not found' });
+//     }
+
+//     // Find the enrolled courses for the student
+//     const enrolledCourses = await Enrollment.findAll({
+//       where: { studentId: student.id },
+//       include: {
+//         model: Course,
+//       },
+//     });
+
+//     res.json(enrolledCourses);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Server Error' });
+//   }
+// };

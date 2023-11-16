@@ -18,8 +18,8 @@ export default function LoginPage() {
     }
     try {
       const admin = await loginHandler(username, password);
-      console.log(admin);
-      router.push('/admindash');
+      // console.log(admin);
+      router.push('/admin/choosedegree');
     } catch (err) {
       alert('Invalid credentials');
     }

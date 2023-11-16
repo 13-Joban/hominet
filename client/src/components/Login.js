@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 // import { login } from '../store/slices/studentSlice';
 // import { useDispatch } from 'react-redux';
+import Register from '../components/Register'
 import {useLogin} from '../api';
 
 export default function LoginPage() {
@@ -9,6 +10,7 @@ export default function LoginPage() {
   const loginHandler = useLogin();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showRegister, setShowRegister] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,16 +19,36 @@ export default function LoginPage() {
       return;
     }
     try {
-      await loginHandler(username, password);
-      router.push('/choose-degree');
+     const  student   =  await loginHandler(username, password);
+     console.log(student);
+
+     if(student){
+      console.log(student.degreeType)
+      if (student.degreeType === 'Minor') {
+        router.push('/minor/enroll/allcourses');
+      } else if (student.degreeType === 'Honours') {
+        router.push('/honours/enroll/allcourses');
+      } 
+     }
+
+    
     } catch (err) {
       alert('Invalid credentials');
     }
   };
 
+  const handleRegisterClick = () => {
+    console.log('Register button clicked');
+    setShowRegister(true);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center h-screen ">
-      <form onSubmit={handleSubmit} className=" lg:w-screen max-w-md p-8 bg-white rounded-lg shadow-lg">
+
+{ showRegister ? ( // Conditionally render the Register component
+        <Register />
+      ) : (
+        <form onSubmit={handleSubmit} className=" lg:w-screen max-w-md p-8 bg-white rounded-lg shadow-lg">
         <h1 className="lg:text-2xl text-xl font-bold text-gray-900 mb-6">Log in to your account</h1>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="username">
@@ -60,18 +82,17 @@ export default function LoginPage() {
           >
             Sign In
           </button>
-          {/* <button
-              onClick={() => {
-                console.log("Register button clicked");
-                router.push('/register');
-              }}
+          <button
+              onClick={handleRegisterClick}
             
             className="bg-blue-500 hover:bg-blue-700 text-white font-medium lg:font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 lg:mb-0 lg:ml-2 w-full lg:w-auto"
           >
             Register
-          </button> */}
+          </button>
         </div>
       </form>
+      )}
+     
     </div>
   );
 }

@@ -11,7 +11,7 @@ const {uploadCertificate, getCourseById, enrollInCourse, getEnrolledCourses, get
 // Use the upload middleware in the route for uploading certificates
 router.post('/enrolledcourses/:courseId/certificate', isAuthenticated, upload.single('file'), uploadCertificate);
 router.get('/enrolledcourses', isAuthenticated, getEnrolledCourses);
-router.get('/', getAllCourses);
+router.get('/', isAuthenticated, getAllCourses);
 router.get('/:courseId',  getCourseById);
 router.post('/enroll/:courseId', isAuthenticated,  enrollInCourse);
 

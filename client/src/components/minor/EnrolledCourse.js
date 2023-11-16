@@ -34,18 +34,6 @@ const handleUpload = async () => {
   
       const formData = new FormData();
       formData.append('file', selectedFile);
-      // const filename = {
-      //   name: selectedFile.name
-      // }
-      // console.log(filename);
-
-      // console.log(formData);
-     
-      // const response = await axios.post(url, filename, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
       const response = await axios.post(url, formData, {
           headers: {
             Authorization: `Bearer ${token}`,

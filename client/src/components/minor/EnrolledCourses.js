@@ -1,11 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import CourseCard from "../CourseCard";
 import getCourseImage from "../../utils/getCourseImage"
-import axios from 'axios';
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import {fetchEnrolledCourses} from '../../api'
-
-import Cookies from 'js-cookie';
 
 function EnrolledCourses() {
   // const [enrolledCourses, setEnrolledCourses] = useState([]);

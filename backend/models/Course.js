@@ -38,14 +38,30 @@ const Course = db.define('Course', {
   },
   enrollmentEndDate: {
     type: DataTypes.DATE,
-    defaultValue: '2023-05-20'
-    // allowNull: false
+    defaultValue: '2024-05-20',
+  },
+  certificateSubmissionStartDate: {
+    type: DataTypes.DATE,
+    defaultValue: '2024-07-12'
+  },
+  certificateSubmissionEndDate: {
+    type: DataTypes.DATE,
+    defaultValue: '2024-07-19'
   },
   status: {
     type: DataTypes.ENUM('draft', 'published', 'closed'),
-    defaultValue: 'published'
-  }
+    defaultValue: 'published',
+  },
+  type: {
+    type: DataTypes.ENUM('M', 'H'),
+    allowNull: false,
+    defaultValue: 'M',
+  },
 });
-// Course.sync();
 
 module.exports = Course;
+
+
+
+
+

@@ -8,6 +8,16 @@ const Student = db.define('Students', {
     allowNull: false,
     unique: true
   },
+  urn: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false
@@ -36,35 +46,39 @@ const Student = db.define('Students', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  sgpa1st: {
+  degreeType: {
+    type: DataTypes.STRING(50), // You can adjust the length as needed
+    allowNull: false, // Change to false if it's required
+  },
+  sgpa1: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
-  sgpa2nd: {
+  sgpa2: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
-  sgpa3rd: {
+  sgpa3: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
-  sgpa4th: {
+  sgpa4: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
-  sgpa5th: {
+  sgpa5: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
-  sgpa6th: {
+  sgpa6: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
-  sgpa7th: {
+  sgpa7: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
-  sgpa8th: {
+  sgpa8: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },

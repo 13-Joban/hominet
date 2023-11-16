@@ -18,7 +18,7 @@ function CompletedCourse({ courseName, duration, institute, certificateFile }) {
 
       {/* Certificate */}
       <div className="bg-white rounded-md p-4 w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
-        <h2 className="text-xl font-bold mb-2">Course Certificate</h2>
+        <h2 className="text-xl font-bold mb-2">Uploaded Course Completion Certificate</h2>
 
         <div className="pt-8 mb-4">
           <a href={certificateFile} download className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
