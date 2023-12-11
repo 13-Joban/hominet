@@ -58,7 +58,7 @@ function EnrollSubject({subjectName, subjectCode}) {
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h1 className="lg:text-3xl text-2xl text-red font-normal mb-4">{subjectName}</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
+      {/* <div>
           <label htmlFor="crn" type="number" className="block text-gray-700 font-bold mb-2">College Roll No</label>
           <input id="crn" type="text" name="crn" value={formData.crn}  onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
@@ -73,7 +73,7 @@ function EnrollSubject({subjectName, subjectCode}) {
         <div className="mb-4">
           <label htmlFor="parentBranch" className="block text-gray-700 font-bold mb-2">Parent Branch</label>
           <input id="parentBranch" type="text" name="parentBranch" value={formData.parentBranch} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly />
-        </div>
+        </div> */}
         <div className="mb-4">
           <label htmlFor="subjectCode" className="block text-gray-700 font-bold mb-2">Subject Code</label>
           <input id="subjectCode" type="text" name="subjectCode" value={formData.subjectCode} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>

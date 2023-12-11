@@ -33,6 +33,7 @@ const CreateCourseTask = () => {
     nptelLink: '',
     type: '',
     session: '',
+    description: '',
     enrollmentEndDate: ''
   });
   const handleInputChange = (event) => {
@@ -42,7 +43,8 @@ const CreateCourseTask = () => {
   };
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    if (!course.id || !course.name || !course.institute || !course.duration || !course.nptelLink || !course.session || !course.enrollmentEndDate || !course.type) {
+    console.log(course);
+    if (!course.id || !course.name || !course.institute || !course.duration || !course.nptelLink || !course.session || !course.description || !course.enrollmentEndDate) {
       alert('Please fill out all fields.');
       return;
     }
@@ -51,9 +53,15 @@ const CreateCourseTask = () => {
     const url = 'http://localhost:4040/api/admin/courses/add'
     const token = Cookies.get('admin_token');
     // console.log(token);
-    const response = await axios.post(url, course, {
+
+    const defaultType = router.pathname.includes('/admin/honours') ? 'H' : 'M';
+
+    const response = await axios.post(url, { ...course, type: defaultType }, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    // const response = await axios.post(url, course, {
+    //   headers: { Authorization: `Bearer ${token}` },
+    // });
     // console.log(response.data);
     // console.log(course);
   
@@ -64,6 +72,8 @@ const CreateCourseTask = () => {
       duration: '',
       nptelLink: '',
       session: '',
+      type:'',
+      description: '',
       enrollmentEndDate: ''
     });
 
@@ -167,20 +177,24 @@ const CreateCourseTask = () => {
           />
         </div>
         <div className="col-span-2 sm:col-span-1">
-  <label className="block font-medium mb-2" htmlFor="type">
-    Degree Type
-  </label>
-  <select
-    className="w-full border border-gray-300 p-2 rounded-lg"
-    id="type"
-    name="type"
-    value={course.type}
-    onChange={handleInputChange}
-  >
-    <option value="M">Minor</option>
-    <option value="H">Honours</option>
-  </select>
-</div>
+            <label className="block font-medium mb-2" htmlFor="type">
+              Degree Type
+            </label>
+            <select
+              className="w-full border border-gray-300 p-2 rounded-lg"
+              id="type"
+              name="type"
+              value={course.type}
+              onChange={handleInputChange}
+              disabled  // disable the select input since it's hard-coded based on the route
+            >
+              {router.pathname.includes('/admin/honours') ? (
+                <option value="H">Honours</option>
+              ) : (
+                <option value="M">Minor</option>
+              )}
+            </select>
+          </div>
         <div className="col-span-2 sm:col-span-1">
           <label className="block font-medium mb-2" htmlFor="session">
             Session
@@ -195,6 +209,20 @@ const CreateCourseTask = () => {
             onChange={handleInputChange}
           />
         </div>
+        <div className="col-span-2">
+  <label className="block font-medium mb-2" htmlFor="description">
+    Description
+  </label>
+  <textarea
+    className="w-full border border-gray-300 p-2 rounded-lg"
+    id="description"
+    name="description"
+    placeholder="Enter Course Description"
+    value={course.description}
+    onChange={handleInputChange}
+  />
+</div>
+
         <div className="col-span-2">
           <label className="block font-medium mb-2" htmlFor="enrollmentEndDate">
             Enrollment End Date

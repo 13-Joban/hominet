@@ -30,23 +30,24 @@ export default function RegisterPage() {
   const [degreeType, setDegreeType] = useState('');
 
   const handleSubmit = async (e) => {
+    console.log(crn, urn, name, email, password, contactNo, semester, branch, year, passingOutYear, degreeType);
     e.preventDefault();
-    if (
-      !crn ||
-      !password ||
-      !name ||
-      !contactNo ||
-      !semester ||
-      !branch ||
-      !year ||
-      !passingOutYear ||
-      !degreeType ||
-      !urn ||
-      !email
-    ) {
-      alert('Please fill in all the required fields');
-      return;
-    }
+    // if (
+    //   !crn ||
+    //   !password ||
+    //   !name ||
+    //   !contactNo ||
+    //   !semester ||
+    //   !branch ||
+    //   !year ||
+    //   !passingOutYear ||
+    //   // !degreeType ||
+    //   !urn ||
+    //   !email
+    // ) {
+    //   alert('Please fill in all the required fields');
+    //   return;
+    // }
 
     try {
       
@@ -233,7 +234,11 @@ export default function RegisterPage() {
             className="input-field"
             id="degreeType"
             value={degreeType}
-            onChange={(e) => setDegreeType(e.target.value)}
+            onChange={(e) => {
+              console.log("Selected Degree Type:", e.target.value);
+              setDegreeType(e.target.value);
+            }}
+          
           >
             {degreeTypeOptions.map((option) => (
               <option key={option} value={option}>

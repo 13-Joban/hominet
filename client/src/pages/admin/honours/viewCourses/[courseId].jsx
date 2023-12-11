@@ -92,7 +92,7 @@ const updateCourses
   
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    if (!course.id || !course.name || !course.institute || !course.duration || !course.nptelLink || !course.session || !course.enrollmentEndDate || !course.certificateSubmissionStartDate || !course.certificateSubmissionEndDate) {
+    if (!course.id || !course.name || !course.institute || !course.duration || !course.nptelLink || !course.session  || !course.enrollmentEndDate || !course.certificateSubmissionStartDate || !course.certificateSubmissionEndDate) {
       alert('Please fill out all fields.');
       return;
     }
@@ -140,7 +140,7 @@ const updateCourses
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full">
       {/* Left Sidebar */}
       <div className="w-64 bg-gray-800">
         <div className="px-4 py-5 border-b border-gray-700">
@@ -253,6 +253,9 @@ const updateCourses
       onChange={handleInputChange}
     />
   </div>
+
+ 
+
   <div className="col-span-2 sm:col-span-1">
     <label className="block font-medium mb-2" htmlFor="enrollmentEndDate">
       Enrollment End Date

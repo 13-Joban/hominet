@@ -67,22 +67,22 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
         <a href={courseLink} className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 inline-block" target="_blank" rel="noopener noreferrer">Nptel Link</a>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
+        {/* <div>
           <label htmlFor="crn" type="number" className="block text-gray-700 font-bold mb-2">College Roll No</label>
           <input id="crn" type="text" name="crn" value={formData.crn}  onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
-        </div>
-        <div className="mb-4">
+        </div> */}
+        {/* <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
           <input id="name" type="text" name="name" value={formData.name} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
-        </div>
-        <div className="mb-4">
+        </div> */}
+        {/* <div className="mb-4">
           <label htmlFor="semester" className="block text-gray-700 font-bold mb-2">Semester</label>
           <input id="semester" type="text" name="semester" value={formData.semester} onChange={handleInputChange}  className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
-        </div>
-        <div className="mb-4">
+        </div> */}
+        {/* <div className="mb-4">
           <label htmlFor="parentBranch" className="block text-gray-700 font-bold mb-2">Parent Branch</label>
           <input id="parentBranch" type="text" name="parentBranch" value={formData.parentBranch} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly />
-        </div>
+        </div> */}
         {/* <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="semester">
             Semester
@@ -115,10 +115,10 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
             <option value="Production Engineering">Production Engineering</option>
           </select>
         </div> */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="contactNo" type="number" className="block text-gray-700 font-bold mb-2">Contact Number</label>
           <input id="contactNo" type="text" name="contactNo" value={formData.contactNo}  onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
-        </div>
+        </div> */}
         <div className="mb-4">
           <label htmlFor="courseId" className="block text-gray-700 font-bold mb-2">Course Id</label>
           <input id="courseId" type="text" name="courseId" value={formData.courseId} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>

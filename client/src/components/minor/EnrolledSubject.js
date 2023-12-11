@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CompletedSubject from './CompletedSubject'
+import CompletedSubject from './CompletedSubject';
 import { completeSubject } from '../../store/slices/subjectSlice';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 
 function EnrolledSubject({ subjectName, subjectCode, credits, selectedEnrolledSubject }) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploadEnabled, setIsUploadEnabled] = useState(true);
   const dispatch = useDispatch();
 
   const handleFileChange = (event) => {
@@ -54,8 +55,21 @@ function EnrolledSubject({ subjectName, subjectCode, credits, selectedEnrolledSu
     }
   };
 
+  useEffect(() => {
+    const currentDate = new Date();
+    const startDate = new Date(selectedEnrolledSubject.Subject.resultSubmissionStartDate);
+    const endDate = new Date(selectedEnrolledSubject.Subject.resultSubmissionEndDate);
+
+    // Check if the current date is within the time span
+    if (currentDate < startDate || currentDate > endDate) {
+      setIsUploadEnabled(false);
+    } else {
+      setIsUploadEnabled(true);
+    }
+  }, [selectedEnrolledSubject]);
+
   if (selectedEnrolledSubject.isCompleted) {
-    return  <CompletedSubject subjectName={subjectName} credits={credits} subjectCode={subjectCode} certificateFile={selectedEnrolledSubject.certificate} />
+    return <CompletedSubject subjectName={subjectName} credits={credits} subjectCode={subjectCode} certificateFile={selectedEnrolledSubject.certificate} />;
   }
 
   return (
@@ -73,17 +87,20 @@ function EnrolledSubject({ subjectName, subjectCode, credits, selectedEnrolledSu
           <button
             onClick={() => document.getElementById('file-upload').click()}
             className="px-4 py-2 bg-indigo-500 text-white font-medium rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={!isUploadEnabled}
           >
             Choose File
           </button>
         </div>
-        <div
-          className="border-dashed border-2 border-gray-300 p-8 mb-4"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-        >
-          <p className="text-gray-600 mb-2">Drag and drop your file here</p>
-        </div>
+        {isUploadEnabled && (
+          <div
+            className="border-dashed border-2 border-gray-300 p-8 mb-4"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <p className="text-gray-600 mb-2">Drag and drop your file here</p>
+          </div>
+        )}
         {selectedFile && (
           <div className="mb-4">
             <p className="text-gray-600">Selected File: {selectedFile.name}</p>
@@ -91,9 +108,9 @@ function EnrolledSubject({ subjectName, subjectCode, credits, selectedEnrolledSu
         )}
         <button
           onClick={handleUpload}
-          disabled={!selectedFile}
+          disabled={!selectedFile || !isUploadEnabled}
           className={`px-4 py-2 rounded-md ${
-            selectedFile ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'
+            selectedFile && isUploadEnabled ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'
           } text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500`}
         >
           Upload Result
@@ -104,3 +121,5 @@ function EnrolledSubject({ subjectName, subjectCode, credits, selectedEnrolledSu
 }
 
 export default EnrolledSubject;
+
+<ToastContainer />;

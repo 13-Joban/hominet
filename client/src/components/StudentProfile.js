@@ -33,7 +33,7 @@ function StudentProfile({ studentData }) {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Left Sidebar */}
-      <div className="w-64 bg-gray-800 p-4 lg:p-8">
+      <div className="w-full lg:w-64 bg-gray-800 p-4 lg:p-8">
         <div className="flex items-center justify-center mb-6">
           <Image src={locofy} alt="Logo" width={48} height={48} />
           <p className="ml-2 text-white font-medium text-lg">My Dashboard</p>
@@ -109,7 +109,7 @@ function StudentProfile({ studentData }) {
                           Download Certificate
                         </a>
                       ) : (
-                        <span className="text-red-500">Not Uploaded</span>
+                        <span className="text-red">Not Uploaded</span>
                       )}
             </td>
           </tr>
@@ -151,10 +151,10 @@ function StudentProfile({ studentData }) {
                             download={subject.certificate}
                             target="_blank"
                           >
-                            Download Certificate
+                            Download Result
                           </a>
                         ) : (
-                          <span className="text-red-500">Not Uploaded</span>
+                          <span className="text-red">Not Uploaded</span>
                         )}
       </td>
             </tr>

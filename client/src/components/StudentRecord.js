@@ -7,6 +7,8 @@ import { useRouter} from 'next/router';
 import locofy from '../../public/images/gndec-fotor-bg-remover-20230410223713.png';
 import { adminLogout} from '../api'
 const StudentRecord = ({ data }) => {
+
+  // const [searchInput, setSearchInput] = useState('');
     const columns = React.useMemo(
         () => [
           {
@@ -24,10 +26,6 @@ const StudentRecord = ({ data }) => {
           {
             Header: 'Branch',
             accessor: 'branch',
-          },
-          {
-            Header: 'Semester',
-            accessor: 'semester',
           },
           // Add more columns as needed
           {
@@ -107,11 +105,11 @@ const StudentRecord = ({ data }) => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col h-screen sm:flex-row">
       {/* Left Sidebar */}
-      <div className="w-64 bg-gray-800">
+      <div className="w-full sm:w-64 bg-gray-800">
         <div className="px-4 py-5 border-b border-gray-700">
-          <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center">
             <Image src={locofy} alt="Logo" width={48} height={48} />
             <span className="ml-2 text-white font-medium text-lg">My Dashboard</span>
           </div>
@@ -131,6 +129,11 @@ const StudentRecord = ({ data }) => {
       {/* Main Content */}
       <div className="flex flex-col w-full max-w-4xl mx-auto p-8">
         {/* Search filter */}
+       
+
+        <div className='mb-4 '>
+        <p className='text-red font-medium  text-2xl'>{getHeaderText()}</p>
+        </div>
         {/* <div className="mb-4">
           <input
             type="text"
@@ -140,10 +143,6 @@ const StudentRecord = ({ data }) => {
             onChange={(e) => setGlobalFilter(e.target.value)}
           />
         </div> */}
-
-        <div className='mb-4 '>
-        <p className='text-red font-medium  text-2xl'>{getHeaderText()}</p>
-        </div>
 
         {/* Table */}
         <div className="overflow-x-auto">

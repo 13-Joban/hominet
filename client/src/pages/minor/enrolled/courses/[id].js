@@ -12,8 +12,11 @@ function EnrolledCoursePage() {
 
   const dispatch = useDispatch()
   const enrolledCourses = useSelector(state => state.courses.enrolledCourses)
+  console.log(enrolledCourses)
   const selectedEnrolledCourse = enrolledCourses.find(course => course.courseId === id)
+  console.log(selectedEnrolledCourse)
   const selectedCourse = selectedEnrolledCourse.Course;
+  console.log(selectedCourse);
   useEffect(() => {
     if (id) {
       dispatch(fetchEnrolledCourses())

@@ -8,7 +8,7 @@ export default function SubjectCard({ subject, isEnrolled, imageSrc }) {
         <a>
           <img
             className="h-40 w-full object-cover"
-            src={imageSrc}
+            src={isEnrolled ?  imageSrc : imageSrc.src }
             alt={subject.subjectName}
           />
            <div className="p-2 h-30 overflow-hidden">

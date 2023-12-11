@@ -78,6 +78,7 @@ const updateCourses
   };
   
   const handleFormSubmit = async (event) => {
+    console.log(course);
     event.preventDefault();
     if (!course.id || !course.name || !course.institute || !course.duration || !course.nptelLink || !course.session || !course.enrollmentEndDate || !course.certificateSubmissionStartDate || !course.certificateSubmissionEndDate) {
       alert('Please fill out all fields.');
@@ -250,6 +251,20 @@ const updateCourses
       onChange={handleInputChange}
     />
   </div>
+  {/* <div className="col-span-2">
+        <label className="block font-medium mb-2" htmlFor="description">
+          Description
+        </label>
+        <textarea
+          className="w-full border border-gray-300 p-2 rounded-lg"
+          id="description"
+          name="description"
+          placeholder="Enter Description"
+          value={course.description}
+          onChange={handleInputChange}
+        />
+      </div> */}
+
   <div className="col-span-2 sm:col-span-1">
     <label className="block font-medium mb-2" htmlFor="enrollmentEndDate">
       Enrollment End Date
@@ -292,7 +307,7 @@ const updateCourses
       onChange={handleInputChange}
     />
   </div>
-  <div className="col-span-2">
+  <div className="col-span-2 mb-2">
     <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded shadow center">
       {courseId ? 'Update Course' : 'Create Course'}
     </button>

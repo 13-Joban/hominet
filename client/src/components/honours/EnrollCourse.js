@@ -66,7 +66,7 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
         <a href={courseLink} className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 inline-block" target="_blank" rel="noopener noreferrer">Nptel Link</a>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
+        {/* <div>
           <label htmlFor="crn" type="number" className="block text-gray-700 font-bold mb-2">College Roll No</label>
           <input id="crn" type="text" name="crn" value={formData.crn}  onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly/>
         </div>
@@ -81,7 +81,7 @@ function EnrollCourse({courseName, courseId, courseLink, duration, offeredBy, se
         <div className="mb-4">
           <label htmlFor="parentBranch" className="block text-gray-700 font-bold mb-2">Parent Branch</label>
           <input id="parentBranch" type="text" name="parentBranch" value={formData.parentBranch} onChange={handleInputChange} className="border border-gray-300 rounded-md p-2 w-full" readOnly />
-        </div>
+        </div> */}
         {/* <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="semester">
             Semester

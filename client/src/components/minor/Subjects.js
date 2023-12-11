@@ -10,8 +10,6 @@ export default function Subjects() {
   const enrolledSubjects = useSelector((state) => state.subjects.enrolledSubjects);
   let unenrolledSubjects= subjects;
 
-  console.log(enrolledSubjects);
-
   useEffect(() => {
     dispatch(getAllSubjects());
   }, [dispatch]);
@@ -37,7 +35,7 @@ export default function Subjects() {
     <div className="grid grid-cols-2 md:grid-cols-3 space-x-1 gap-4 md:gap-8">
       {unenrolledSubjects.map((subject, index) => (
         <SubjectCard
-          key={subject.id}
+          key={subject.subjectCode}
           subject={subject}
           isEnrolled={false}
           imageSrc={getCourseImage(index)}

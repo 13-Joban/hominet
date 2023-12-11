@@ -94,7 +94,7 @@ const updateCourses = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full">
       {/* Left Sidebar */}
       <div className="w-64 bg-gray-800">
         <div className="px-4 py-5 border-b border-gray-700">

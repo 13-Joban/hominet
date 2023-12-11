@@ -49,7 +49,7 @@ export default function LoginPage() {
         <Register />
       ) : (
         <form onSubmit={handleSubmit} className=" lg:w-screen max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <h1 className="lg:text-2xl text-xl font-bold text-gray-900 mb-6">Log in to your account</h1>
+        <h1 className="lg:text-2xl text-xl font-bold text-gray-900 mb-6">Student Account</h1>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="username">
             Username

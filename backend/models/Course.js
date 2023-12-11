@@ -22,6 +22,10 @@ const Course = db.define('Course', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
   isEnrolled: {
     type: DataTypes.BOOLEAN,
     allowNull: false,

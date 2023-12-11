@@ -21,7 +21,7 @@ export default function SelectDegreeAdmin() {
         <Image src={logo} alt='college-logo' priority={true} />
       </div>
       <div className="flex flex-col items-center justify-center mb-6">
-        <p className='font-normal text-red text-xl lg:text-2xl'>Choose Your Degree</p>
+        <p className='font-normal text-red text-xl lg:text-2xl'>Choose Degree</p>
       </div>
       <div className="flex flex-col gap-4 items-center justify-center">
         <button

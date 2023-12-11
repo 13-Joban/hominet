@@ -33,9 +33,9 @@ function EnrolledSubjectPage() {
       <EnrolledSubject
         isCompleted={selectedSubject.isCompleted}
         selectedEnrolledSubject={selectedSubject}
-        subjectName={selectedSubject.subjectName}
+        subjectName={selectedSubject.Subject.subjectName}
         subjectCode={subjectCode}
-        credits={selectedSubject.credits}
+        credits={selectedSubject.Subject.credits}
       />
     </Layout>
   );

@@ -126,7 +126,7 @@ const getadminById = async id => {
 
 exports.addNewCourse = async (req, res) => {
   try {
-    const { id, name, institute, duration, nptelLink, session, type } = req.body
+    const { id, name, institute, duration, nptelLink, session, type, description } = req.body
 
     // Create new course
     const newCourse = await Course.create({
@@ -136,7 +136,8 @@ exports.addNewCourse = async (req, res) => {
       duration,
       nptelLink,
       type,
-      session
+      session,
+      description
     })
 
     res.status(201).json({
@@ -158,8 +159,8 @@ exports.updateCourse = async (req, res) => {
       name,
       institute,
       duration,
-      nptelLink,
       session,
+      nptelLink,
       enrollmentEndDate,
       certificateSubmissionStartDate,
       certificateSubmissionEndDate

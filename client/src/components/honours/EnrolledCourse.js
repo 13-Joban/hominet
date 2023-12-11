@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 
 function EnrolledCourse({ isCompleted, courseId, courseName, duration, institute , selectedEnrolledCourse}) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploadEnabled, setIsUploadEnabled] = useState(true);
   console.log(selectedEnrolledCourse);
   const dispatch = useDispatch();
 
@@ -48,6 +49,19 @@ const handleUpload = async () => {
     }
 };
   
+useEffect(() => {
+  const currentDate = new Date();
+  const startDate = new Date(selectedEnrolledCourse.Course.certificateSubmissionStartDate);
+  const endDate = new Date(selectedEnrolledCourse.Course.certificateSubmissionEndDate);
+
+  // Check if the current date is within the time span
+  if (currentDate < startDate || currentDate > endDate) {
+    setIsUploadEnabled(false);
+    // toast.error('You cannot upload the certificate at this time. Dates will be notified soon.');
+  } else {
+    setIsUploadEnabled(true);
+  }
+}, [selectedEnrolledCourse]);
 
   if(selectedEnrolledCourse.isCompleted){
     return  <CompletedCourse courseName={courseName} duration={duration} institute={institute} certificateFile={selectedEnrolledCourse.certificate} />
@@ -74,18 +88,21 @@ const handleUpload = async () => {
           <button
             onClick={() => document.getElementById('file-upload').click()}
             className="px-4 py-2 bg-indigo-500 text-white font-medium rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={!isUploadEnabled}
           >
             Choose File
           </button>
         </div>
 
-        <div
-          className="border-dashed border-2 border-gray-300 p-8 mb-4"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-        >
-          <p className="text-gray-600 mb-2">Drag and drop your file here</p>
-        </div>
+        {isUploadEnabled && (
+  <div
+    className="border-dashed border-2 border-gray-300 p-8 mb-4"
+    onDrop={handleDrop}
+    onDragOver={handleDragOver}
+  >
+    <p className="text-gray-600 mb-2">Drag and drop your file here</p>
+  </div>
+)}
 
         {selectedFile && (
           <div className="mb-4">
@@ -95,9 +112,9 @@ const handleUpload = async () => {
 
         <button
           onClick={handleUpload}
-          disabled={!selectedFile}
+          disabled={!selectedFile || !isUploadEnabled}
           className={`px-4 py-2 rounded-md ${
-            selectedFile ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'
+            selectedFile && isUploadEnabled  ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'
           } text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500`}
         >
           Upload Certificate
